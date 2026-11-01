@@ -28,7 +28,7 @@ export function PortfolioGrid({ items }: { items: GalleryItem[] }) {
     <section className="container-x pb-24 md:pb-36">
       <div className="no-scrollbar mb-10 flex gap-2 overflow-x-auto">
         {cats.map((c) => (
-          <button key={c} onClick={() => setCat(c)} className={cn("relative shrink-0 rounded-full px-5 py-2.5 text-sm ring-1 transition", cat === c ? "bg-ink text-bg ring-ink" : "ring-line hover:ring-ink/40")}>
+          <button key={c} onClick={() => setCat(c)} className={cn("relative shrink-0 rounded-[3px] px-5 py-2.5 text-sm ring-1 transition", cat === c ? "bg-ink text-bg ring-ink" : "ring-line hover:ring-ink/40")}>
             {c}
             <span className="ml-2 text-xs opacity-50">{c === "All" ? items.length : items.filter((i) => i.category === c).length}</span>
           </button>
@@ -74,7 +74,7 @@ export function PortfolioGrid({ items }: { items: GalleryItem[] }) {
                 className="relative max-h-[85vh] max-w-5xl"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img src={list[open].image.replace("w=1200", "w=2000")} alt={list[open].title} className="max-h-[78vh] w-auto rounded-2xl object-contain" />
+                <img src={list[open].image.replace("w=1200", "w=2000")} alt={list[open].title} className="max-h-[78vh] w-auto rounded-[4px] object-contain" />
                 <figcaption className="mt-4 flex items-center justify-between text-white">
                   <span className="font-medium">{list[open].title}</span>
                   <span className="text-sm text-white/60">

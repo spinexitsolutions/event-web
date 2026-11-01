@@ -20,12 +20,12 @@ export function EventsBrowser({ events }: { events: EventItem[] }) {
 
   return (
     <section className="container-x pb-24 md:pb-36">
-      <div className="sticky top-3 z-30 -mx-2 mb-10 rounded-[22px] p-2 md:top-24">
-        <div className="glass flex flex-col gap-3 rounded-[20px] p-2 ring-1 ring-line md:flex-row md:items-center">
-          <div className="flex rounded-full bg-ink/5 p-1">
+      <div className="sticky top-3 z-30 -mx-2 mb-10 rounded-[4px] p-2 md:top-24">
+        <div className="glass flex flex-col gap-3 rounded-[4px] p-2 ring-1 ring-line md:flex-row md:items-center">
+          <div className="flex rounded-[3px] bg-ink/5 p-1">
             {(["upcoming", "past"] as const).map((w) => (
-              <button key={w} onClick={() => setWhen(w)} className="relative flex-1 rounded-full px-5 py-2 text-sm capitalize md:flex-none">
-                {when === w && <motion.span layoutId="when" className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
+              <button key={w} onClick={() => setWhen(w)} className="relative flex-1 rounded-[3px] px-5 py-2 text-sm capitalize md:flex-none">
+                {when === w && <motion.span layoutId="when" className="absolute inset-0 rounded-[3px] bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
                 <span className={cn("relative", when === w ? "text-bg" : "text-ink")}>{w}</span>
               </button>
             ))}
@@ -33,14 +33,14 @@ export function EventsBrowser({ events }: { events: EventItem[] }) {
           <LayoutGroup>
             <div className="no-scrollbar flex gap-1 overflow-x-auto">
               {cats.map((c) => (
-                <button key={c} onClick={() => setCat(c)} className="relative shrink-0 rounded-full px-4 py-2 text-sm">
-                  {cat === c && <motion.span layoutId="cat" className="absolute inset-0 rounded-full bg-accent" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
-                  <span className={cn("relative", cat === c ? "text-white" : "text-muted hover:text-ink")}>{c}</span>
+                <button key={c} onClick={() => setCat(c)} className="relative shrink-0 rounded-[3px] px-4 py-2 text-sm">
+                  {cat === c && <motion.span layoutId="cat" className="absolute inset-0 rounded-[3px] bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
+                  <span className={cn("relative", cat === c ? "text-bg" : "text-muted hover:text-ink")}>{c}</span>
                 </button>
               ))}
             </div>
           </LayoutGroup>
-          <label className="flex h-11 flex-1 items-center gap-2 rounded-full bg-white px-4 ring-1 ring-line md:ml-auto md:max-w-xs">
+          <label className="flex h-11 flex-1 items-center gap-2 rounded-[3px] bg-white px-4 ring-1 ring-line md:ml-auto md:max-w-xs">
             <Search className="h-4 w-4 text-muted" />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search city, venue…" className="w-full bg-transparent text-sm outline-none" />
           </label>

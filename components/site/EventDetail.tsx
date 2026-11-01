@@ -40,13 +40,13 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
         <motion.img src={e.image} alt={e.title} style={{ y, scale }} className="absolute inset-0 h-full w-full object-cover opacity-80" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/30" />
         <div className="container-x relative flex h-full flex-col justify-between pb-10 pt-6 md:pb-16 md:pt-36">
-          <Link href="/events" className="glass-dark flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm">
+          <Link href="/events" className="glass-dark flex w-fit items-center gap-2 rounded-[3px] px-4 py-2 text-sm">
             <ArrowLeft className="h-4 w-4" /> All events
           </Link>
           <div>
             <div className="flex flex-wrap gap-2">
-              <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium">{e.category}</span>
-              {e.status === "upcoming" && <span className="glass-dark rounded-full px-3 py-1 text-xs">{soldPct(e.tickets)}% sold</span>}
+              <span className="rounded-[3px] bg-white px-2 py-0.5 text-xs font-medium text-ink">{e.category}</span>
+              {e.status === "upcoming" && <span className="glass-dark rounded-[3px] px-3 py-1 text-xs">{soldPct(e.tickets)}% sold</span>}
             </div>
             <h1 className="mt-5 max-w-5xl text-[clamp(2.75rem,8.5vw,8rem)]">
               <SplitLines inView={false} waitForIntro delay={0.35} lineClassName="display" lines={[e.title]} />
@@ -73,7 +73,7 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
           {e.highlights.length > 0 && (
             <div className="mt-10 grid grid-cols-2 gap-3">
               {e.highlights.map((h, i) => (
-                <Reveal key={h} delay={i * 0.06} className="rounded-2xl bg-white p-5 ring-1 ring-line">
+                <Reveal key={h} delay={i * 0.06} className="rounded-[4px] bg-white p-5 ring-1 ring-line">
                   <span className="accent-word text-3xl text-accent">0{i + 1}</span>
                   <p className="mt-2 font-medium tracking-tight">{h}</p>
                 </Reveal>
@@ -81,7 +81,7 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
             </div>
           )}
           <div className="mt-10 flex flex-wrap gap-3">
-            <a href={ics(e)} download={`${e.slug}.ics`} className="flex h-12 items-center gap-2 rounded-full px-5 text-sm ring-1 ring-line transition hover:bg-ink hover:text-bg">
+            <a href={ics(e)} download={`${e.slug}.ics`} className="flex h-12 items-center gap-2 rounded-[3px] px-5 text-sm ring-1 ring-line transition hover:bg-ink hover:text-bg">
               <CalendarPlus className="h-4 w-4" /> Add to calendar
             </a>
             <button
@@ -94,7 +94,7 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
                   setTimeout(() => setCopied(false), 1800);
                 }
               }}
-              className="flex h-12 items-center gap-2 rounded-full px-5 text-sm ring-1 ring-line transition hover:bg-ink hover:text-bg"
+              className="flex h-12 items-center gap-2 rounded-[3px] px-5 text-sm ring-1 ring-line transition hover:bg-ink hover:text-bg"
             >
               <Share2 className="h-4 w-4" /> {copied ? "Link copied" : "Share"}
             </button>
@@ -131,11 +131,11 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
 
       {/* Mobile sticky buy bar */}
       {e.status === "upcoming" && (
-        <a href="#tickets" className="fixed inset-x-3 bottom-[84px] z-50 flex h-14 items-center justify-between rounded-full bg-accent pl-6 pr-2 text-white shadow-xl md:hidden">
+        <a href="#tickets" className="fixed inset-x-3 bottom-[84px] z-50 flex h-14 items-center justify-between rounded-[3px] bg-accent pl-6 pr-2 text-white shadow-xl md:hidden">
           <span className="text-sm">
             From <b>{inr(minPrice(e.tickets))}</b>
           </span>
-          <span className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-dark">Get tickets</span>
+          <span className="rounded-[3px] bg-white px-5 py-2.5 text-sm font-medium text-dark">Get tickets</span>
         </a>
       )}
     </>
@@ -144,7 +144,7 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
 
 function Info({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="glass-dark rounded-2xl px-4 py-3 md:bg-transparent md:p-0 md:backdrop-blur-none">
+    <div className="glass-dark rounded-[4px] px-4 py-3 md:bg-transparent md:p-0 md:backdrop-blur-none">
       <p className="eyebrow flex items-center gap-1.5 text-white/50">
         {icon}
         {label}

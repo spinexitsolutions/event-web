@@ -3,8 +3,9 @@
 import { AnimatePresence, animate, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useSite } from "./SiteProvider";
-import { EASE, EASE_IO } from "./motion";
+import { EASE } from "./motion";
 
+/** Minimal preloader — admin chooses counter / words / logo. */
 export function Intro() {
   const { settings, introDone, setIntroDone } = useSite();
   const { intro, brand } = settings;
@@ -20,8 +21,7 @@ export function Intro() {
     try {
       seen = intro.oncePerSession && sessionStorage.getItem("lume-intro") === "1";
     } catch {}
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (seen || reduce) {
+    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setShow(false);
       setIntroDone(true);
       return;
@@ -34,11 +34,10 @@ export function Intro() {
         try {
           sessionStorage.setItem("lume-intro", "1");
         } catch {}
-        setTimeout(() => setShow(false), 250);
+        setTimeout(() => setShow(false), 200);
       },
     });
-    const step = duration / words.length;
-    const t = setInterval(() => setWordIdx((i) => Math.min(i + 1, words.length - 1)), step);
+    const t = setInterval(() => setWordIdx((i) => Math.min(i + 1, words.length - 1)), duration / words.length);
     return () => {
       ctrl.stop();
       clearInterval(t);
@@ -49,119 +48,53 @@ export function Intro() {
   return (
     <AnimatePresence onExitComplete={() => setIntroDone(true)}>
       {show && !introDone && (
-        <motion.div key="intro" className="fixed inset-0 z-[100]" aria-hidden>
-          {/* accent under-layer revealed during exit */}
-          <motion.div
-            className="absolute inset-0 bg-accent"
-            exit={{ y: "-100%", borderBottomLeftRadius: "50% 12vh", borderBottomRightRadius: "50% 12vh" }}
-            transition={{ duration: 1.1, ease: EASE_IO, delay: 0.12 }}
-          />
-          <motion.div
-            className="grain absolute inset-0 overflow-hidden bg-dark text-white"
-            exit={{ y: "-100%", borderBottomLeftRadius: "50% 12vh", borderBottomRightRadius: "50% 12vh" }}
-            transition={{ duration: 1, ease: EASE_IO }}
-          >
-            {intro.style === "counter" && <CounterStyle count={count} word={words[wordIdx]} wordKey={wordIdx} brand={brand.name} tagline={brand.tagline} />}
-            {intro.style === "words" && <WordsStyle word={words[wordIdx]} wordKey={wordIdx} count={count} />}
-            {intro.style === "logo" && <LogoStyle brand={brand.name} count={count} tagline={brand.tagline} />}
-          </motion.div>
+        <motion.div
+          key="intro"
+          className="fixed inset-0 z-[100] bg-ink text-bg"
+          exit={{ clipPath: "inset(0 0 100% 0)" }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          aria-hidden
+        >
+          <div className="container-x flex h-full flex-col justify-between py-5">
+            <div className="grid-12 meta text-white/50">
+              <span className="col-span-6 text-white">{brand.name}®</span>
+              <span className="col-span-6 text-right">{brand.tagline}</span>
+            </div>
+
+            {intro.style === "logo" ? (
+              <div className="flex overflow-hidden text-[clamp(5rem,24vw,22rem)] font-light leading-none tracking-[-0.08em]">
+                {brand.name.split("").map((ch, i) => (
+                  <motion.span key={i} initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 1, ease: EASE, delay: 0.1 + i * 0.06 }}>
+                    {ch}
+                  </motion.span>
+                ))}
+              </div>
+            ) : (
+              <div className="relative h-[1.1em] overflow-hidden text-[clamp(2.6rem,8vw,7rem)] leading-none tracking-[-0.05em]">
+                <AnimatePresence mode="popLayout">
+                  <motion.span key={wordIdx} className="block" initial={{ y: "100%" }} animate={{ y: "0%" }} exit={{ y: "-100%" }} transition={{ duration: 0.7, ease: EASE }}>
+                    {words[wordIdx]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+            )}
+
+            <div>
+              <div className="flex items-end justify-between">
+                {intro.style === "counter" ? (
+                  <span className="text-[clamp(4rem,14vw,12rem)] font-light leading-[0.8] tracking-[-0.07em] tabular-nums">{count}</span>
+                ) : (
+                  <span className="meta text-white/50">Loading</span>
+                )}
+                <span className="meta tabular-nums text-white/50">{count}%</span>
+              </div>
+              <div className="mt-4 h-px bg-white/15">
+                <div className="h-px bg-white" style={{ width: `${count}%` }} />
+              </div>
+            </div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
-  );
-}
-
-function CounterStyle({ count, word, wordKey, brand, tagline }: { count: number; word: string; wordKey: number; brand: string; tagline: string }) {
-  return (
-    <div className="flex h-full flex-col justify-between p-5 md:p-10">
-      <div className="flex items-center justify-between">
-        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-lg font-semibold tracking-tight">
-          {brand}
-          <span className="text-pop">.</span>
-        </motion.span>
-        <span className="eyebrow text-white/50">Loading experience</span>
-      </div>
-      <div className="relative flex flex-1 items-center justify-center">
-        <div className="pointer-events-none absolute h-[46vmin] w-[46vmin] rounded-full bg-accent/25 blur-[90px]" />
-        <div className="relative h-[1.1em] overflow-hidden text-[clamp(3rem,11vw,9rem)] leading-none">
-          <AnimatePresence mode="popLayout">
-            <motion.span
-              key={wordKey}
-              className="accent-word block"
-              initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
-              animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
-              exit={{ y: "-100%", opacity: 0, filter: "blur(8px)" }}
-              transition={{ duration: 0.7, ease: EASE }}
-            >
-              {word}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-      </div>
-      <div className="flex items-end justify-between gap-6">
-        <div className="display font-medium tabular-nums text-[clamp(5rem,22vw,17rem)] leading-[0.8]">
-          {String(count).padStart(3, "0")}
-        </div>
-        <span className="eyebrow mb-3 hidden text-white/60 md:block">{tagline}</span>
-      </div>
-      <div className="mt-5 h-px w-full bg-white/15">
-        <div className="h-px bg-pop transition-[width] duration-100" style={{ width: `${count}%` }} />
-      </div>
-    </div>
-  );
-}
-
-function WordsStyle({ word, wordKey, count }: { word: string; wordKey: number; count: number }) {
-  return (
-    <div className="flex h-full flex-col items-center justify-center p-6">
-      <div className="relative h-[1.05em] overflow-hidden text-[clamp(3.5rem,14vw,12rem)] font-medium leading-none tracking-[-0.05em]">
-        <AnimatePresence mode="popLayout">
-          <motion.span
-            key={wordKey}
-            className="block"
-            initial={{ y: "105%" }}
-            animate={{ y: "0%" }}
-            exit={{ y: "-105%" }}
-            transition={{ duration: 0.65, ease: EASE_IO }}
-          >
-            {word}
-            <span className="text-pop">.</span>
-          </motion.span>
-        </AnimatePresence>
-      </div>
-      <div className="absolute bottom-10 left-1/2 w-40 -translate-x-1/2 overflow-hidden rounded-full bg-white/15">
-        <div className="h-1 bg-pop" style={{ width: `${count}%` }} />
-      </div>
-    </div>
-  );
-}
-
-function LogoStyle({ brand, count, tagline }: { brand: string; count: number; tagline: string }) {
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-6">
-      <div className="flex overflow-hidden text-[clamp(4.5rem,20vw,16rem)] font-semibold leading-none tracking-[-0.06em]">
-        {brand.split("").map((ch, i) => (
-          <motion.span
-            key={i}
-            initial={{ y: "110%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 1, ease: EASE, delay: 0.1 + i * 0.07 }}
-          >
-            {ch}
-          </motion.span>
-        ))}
-        <motion.span
-          className="text-pop"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.2 + brand.length * 0.07 }}
-        >
-          .
-        </motion.span>
-      </div>
-      <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 0.6, y: 0 }} transition={{ delay: 0.8 }} className="eyebrow">
-        {tagline} — {count}%
-      </motion.p>
-    </div>
   );
 }

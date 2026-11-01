@@ -111,7 +111,7 @@ export function Planner({ services }: { services: string[] }) {
                 <h3 className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">When, and how many?</h3>
                 <label className="mt-6 block">
                   <span className="mb-2 block text-sm text-muted">Preferred date (approx. is fine)</span>
-                  <input type="date" value={data.eventDate} onChange={(e) => setData({ ...data, eventDate: e.target.value })} className="h-12 w-full rounded-xl bg-bg px-4 outline-none ring-1 ring-line focus:ring-2 focus:ring-accent" />
+                  <input type="date" value={data.eventDate} onChange={(e) => setData({ ...data, eventDate: e.target.value })} className="h-12 w-full rounded-[3px] bg-bg px-4 outline-none ring-1 ring-line focus:ring-2 focus:ring-accent" />
                 </label>
                 <div className="mt-6">
                   <div className="flex items-baseline justify-between">
@@ -121,7 +121,7 @@ export function Planner({ services }: { services: string[] }) {
                   <input type="range" min={10} max={5000} step={10} value={data.guests} onChange={(e) => setData({ ...data, guests: +e.target.value })} className="mt-3 w-full accent-[var(--accent)]" />
                   <div className="mt-3 flex flex-wrap gap-2">
                     {GUESTS.map((g) => (
-                      <button key={g} onClick={() => setData({ ...data, guests: g })} className={cn("rounded-full px-3 py-1.5 text-xs ring-1", data.guests === g ? "bg-ink text-bg ring-ink" : "ring-line")}>
+                      <button key={g} onClick={() => setData({ ...data, guests: g })} className={cn("rounded-[3px] px-3 py-1.5 text-xs ring-1", data.guests === g ? "bg-ink text-bg ring-ink" : "ring-line")}>
                         {g.toLocaleString("en-IN")}
                       </button>
                     ))}
@@ -150,7 +150,7 @@ export function Planner({ services }: { services: string[] }) {
                   <Field label="Phone / WhatsApp" type="tel" value={data.phone} onChange={(v) => setData({ ...data, phone: v })} />
                   <label className="block sm:col-span-2">
                     <span className="mb-1.5 block text-sm text-muted">Tell us the vision</span>
-                    <textarea rows={3} value={data.message} onChange={(e) => setData({ ...data, message: e.target.value })} className="w-full rounded-xl bg-bg p-4 outline-none ring-1 ring-line focus:ring-2 focus:ring-accent" />
+                    <textarea rows={3} value={data.message} onChange={(e) => setData({ ...data, message: e.target.value })} className="w-full rounded-[3px] bg-bg p-4 outline-none ring-1 ring-line focus:ring-2 focus:ring-accent" />
                   </label>
                 </div>
                 {err && <p className="mt-2 text-sm text-red-600">{err}</p>}
@@ -161,15 +161,15 @@ export function Planner({ services }: { services: string[] }) {
       </div>
 
       <div className="flex items-center justify-between border-t border-line p-4 md:p-5">
-        <button onClick={() => go(step - 1)} disabled={step === 0} className="flex h-12 items-center gap-2 rounded-full px-5 text-sm text-muted transition hover:text-ink disabled:opacity-0">
+        <button onClick={() => go(step - 1)} disabled={step === 0} className="flex h-12 items-center gap-2 rounded-[3px] px-5 text-sm text-muted transition hover:text-ink disabled:opacity-0">
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
         {step < 3 ? (
-          <button onClick={() => go(step + 1)} disabled={!canNext} className="flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-sm font-medium text-bg transition hover:bg-accent disabled:opacity-30">
+          <button onClick={() => go(step + 1)} disabled={!canNext} className="flex h-12 items-center gap-2 rounded-[3px] bg-ink px-6 text-sm font-medium text-bg transition hover:bg-accent disabled:opacity-30">
             Next <ArrowRight className="h-4 w-4" />
           </button>
         ) : (
-          <button onClick={submit} disabled={!canNext || state === "busy"} className="flex h-12 items-center gap-2 rounded-full bg-accent px-6 text-sm font-medium text-white transition hover:brightness-110 disabled:opacity-40">
+          <button onClick={submit} disabled={!canNext || state === "busy"} className="flex h-12 items-center gap-2 rounded-[3px] bg-accent px-6 text-sm font-medium text-white transition hover:brightness-110 disabled:opacity-40">
             {state === "busy" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />} Send enquiry
           </button>
         )}
@@ -180,7 +180,7 @@ export function Planner({ services }: { services: string[] }) {
 
 function Choice({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
-    <button onClick={onClick} className={cn("relative flex min-h-16 items-center justify-between rounded-2xl px-4 py-3 text-left text-[15px] ring-1 transition", active ? "bg-ink text-bg ring-ink" : "ring-line hover:ring-ink/40")}>
+    <button onClick={onClick} className={cn("relative flex min-h-16 items-center justify-between rounded-[4px] px-4 py-3 text-left text-[15px] ring-1 transition", active ? "bg-ink text-bg ring-ink" : "ring-line hover:ring-ink/40")}>
       {children}
       {active && (
         <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent text-white">
@@ -195,7 +195,7 @@ function Field({ label, value, onChange, type = "text" }: { label: string; value
   return (
     <label className="block">
       <span className="mb-1.5 block text-sm text-muted">{label}</span>
-      <input type={type} value={value} onChange={(e) => onChange(e.target.value)} className="h-12 w-full rounded-xl bg-bg px-4 outline-none ring-1 ring-line focus:ring-2 focus:ring-accent" />
+      <input type={type} value={value} onChange={(e) => onChange(e.target.value)} className="h-12 w-full rounded-[3px] bg-bg px-4 outline-none ring-1 ring-line focus:ring-2 focus:ring-accent" />
     </label>
   );
 }

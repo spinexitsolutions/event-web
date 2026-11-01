@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   Lumé — editorial system
+   One typeface, hairline grid, paper + ink, a single accent used sparingly.
+   ------------------------------------------------------------------ */
 :root {
-  --accent: #5332ff;
-  --accent-soft: #e7e2ff;
-  --pop: #d4ff3f;
-  --bg: #f3f1ec;
-  --ink: #0d0d12;
-  --dark: #0c0b14;
-  --radius: 28px;
+  --accent: #2433ff;
+  --accent-soft: #e4e6ff;
+  --pop: #e6e3dc;
+  --bg: #f1efea;
+  --ink: #121212;
+  --dark: #121212;
+  --radius: 4px;
 }
 
 @theme inline {
@@ -17,16 +21,13 @@
   --color-bg: var(--bg);
   --color-ink: var(--ink);
   --color-dark: var(--dark);
-  --color-muted: color-mix(in oklab, var(--ink) 58%, transparent);
-  --color-line: color-mix(in oklab, var(--ink) 11%, transparent);
+  --color-muted: color-mix(in oklab, var(--ink) 52%, transparent);
+  --color-line: color-mix(in oklab, var(--ink) 14%, transparent);
   --color-card: color-mix(in oklab, white 55%, var(--bg));
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
-  --font-wide: var(--font-wide), var(--font-display), sans-serif;
-  --radius-xl2: var(--radius);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 @layer base {
@@ -39,19 +40,20 @@
     background: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans), system-ui, sans-serif;
+    font-feature-settings: "tnum" 0, "ss01";
+    letter-spacing: -0.011em;
     overflow-x: clip;
   }
   h1,
   h2,
   h3,
-  h4,
-  .font-display {
-    font-family: var(--font-display), var(--font-sans), sans-serif;
-    font-optical-sizing: auto;
+  h4 {
+    font-weight: 400;
+    letter-spacing: -0.035em;
   }
   ::selection {
-    background: var(--accent);
-    color: white;
+    background: var(--ink);
+    color: var(--bg);
   }
   img {
     user-select: none;
@@ -61,55 +63,65 @@
 @layer components {
   .container-x {
     width: 100%;
-    max-width: 1440px;
+    max-width: 1600px;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
   @media (min-width: 768px) {
     .container-x {
-      padding-inline: 2.5rem;
+      padding-inline: 2rem;
     }
   }
-  .eyebrow {
-    font-family: var(--font-sans), sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1rem;
+  }
+  @media (min-width: 768px) {
+    .grid-12 {
+      column-gap: 1.25rem;
+    }
+  }
+  /* small editorial label */
+  .eyebrow,
+  .meta {
+    font-size: 0.8125rem;
+    font-weight: 450;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
   }
   .display {
-    font-family: var(--font-display), sans-serif;
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: -0.05em;
-    line-height: 0.9;
-    font-variation-settings: "opsz" 96;
+    line-height: 0.95;
   }
-  /* Sans-only emphasis: thin + condensed against the heavy display weight */
   .accent-word {
-    font-family: var(--font-display), sans-serif;
-    font-weight: 250;
-    font-stretch: 78%;
-    font-variation-settings: "wdth" 78, "opsz" 96;
-    letter-spacing: -0.035em;
+    color: var(--color-muted);
+  }
+  .font-display,
+  .font-wide {
+    font-family: var(--font-sans), sans-serif;
+  }
+  .condensed {
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    line-height: 0.92;
+  }
+  .text-outline {
+    color: var(--color-muted);
   }
   .glass {
-    background: color-mix(in oklab, var(--bg) 72%, transparent);
-    backdrop-filter: saturate(180%) blur(22px);
-    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
   .glass-dark {
-    background: color-mix(in oklab, #0b0b0c 78%, transparent);
-    backdrop-filter: saturate(180%) blur(22px);
-    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    background: color-mix(in oklab, #121212 70%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
   .grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.07;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    display: none;
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -119,46 +131,40 @@
   }
   .link-underline {
     background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s var(--ease-out-expo);
+  }
+  .link-underline:hover {
+    background-size: 0% 1px;
+    background-position: 100% 100%;
+  }
+  .link-reveal {
+    background-image: linear-gradient(currentColor, currentColor);
     background-size: 0% 1px;
     background-position: 100% 100%;
     background-repeat: no-repeat;
-    transition: background-size 0.5s var(--ease-out-expo);
+    transition: background-size 0.6s var(--ease-out-expo);
   }
-  .link-underline:hover {
+  .link-reveal:hover {
     background-size: 100% 1px;
-    background-position: 0% 100%;
+    background-position: 0 100%;
+  }
+  .hairline {
+    border-color: var(--color-line);
   }
   .prose-lume h2 {
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
     letter-spacing: -0.03em;
-    font-weight: 500;
+    font-weight: 450;
     margin: 2.5rem 0 0.75rem;
   }
   .prose-lume p {
     margin: 0 0 1.25rem;
-    line-height: 1.75;
-    color: color-mix(in oklab, var(--ink) 78%, transparent);
+    line-height: 1.7;
+    color: color-mix(in oklab, var(--ink) 80%, transparent);
     font-size: 1.0625rem;
-  }
-}
-
-@layer components {
-  .font-wide {
-    font-family: var(--font-wide), sans-serif;
-    letter-spacing: -0.04em;
-  }
-  .text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--stroke, var(--ink));
-  }
-  .condensed {
-    font-family: var(--font-display), sans-serif;
-    font-stretch: 75%;
-    font-variation-settings: "wdth" 75, "opsz" 96;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 0.82;
   }
 }
 
@@ -179,18 +185,16 @@
   0%,
   100% {
     opacity: 1;
-    transform: scale(1);
   }
   50% {
-    opacity: 0.4;
-    transform: scale(0.8);
+    opacity: 0.35;
   }
 }
 .animate-spin-slow {
   animation: spin-slow 18s linear infinite;
 }
 .animate-pulse-dot {
-  animation: pulse-dot 1.6s ease-in-out infinite;
+  animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
 /* Lenis */
@@ -206,12 +210,6 @@ html.lenis body {
 }
 .lenis.lenis-stopped {
   overflow: hidden;
-}
-
-@media (hover: none) {
-  .cursor-none-desktop {
-    cursor: auto;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

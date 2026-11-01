@@ -1,13 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Manrope, Unbounded } from "next/font/google";
+import { Host_Grotesk } from "next/font/google";
 import { getDb } from "@/lib/db";
 import "./globals.css";
 
-// Display: characterful grotesque with width + optical-size axes. Body: clean geometric sans.
-const display = Bricolage_Grotesque({ subsets: ["latin"], axes: ["opsz", "wdth"], variable: "--font-display", display: "swap" });
-const sans = Manrope({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-// Wide display for numbers, prices and tickers
-const wide = Unbounded({ subsets: ["latin"], variable: "--font-wide", display: "swap" });
+// One typeface for everything — hierarchy comes from size, weight and space.
+const sans = Host_Grotesk({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo, brand } = getDb().settings;
@@ -19,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0c0b14",
+  themeColor: "#f1efea",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -27,7 +24,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${wide.variable}`} suppressHydrationWarning>
+    <html lang="en" className={sans.variable} suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );

@@ -25,7 +25,7 @@ export default function ServicesPage() {
             <div className="flex flex-col justify-center md:col-span-5 md:col-start-auto">
               <Reveal>
                 <div className="flex items-center gap-3">
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-accent-soft text-accent">
+                  <span className="grid h-11 w-11 place-items-center rounded-[4px] bg-accent-soft text-accent">
                     <Icon name={s.icon} className="h-5 w-5" />
                   </span>
                   <span className="eyebrow text-muted">0{i + 1}</span>
@@ -40,7 +40,7 @@ export default function ServicesPage() {
                   ))}
                 </ul>
                 <div className="mt-8 flex items-center gap-5">
-                  <Link href={`/contact?type=${encodeURIComponent(s.title)}`} className="group flex h-12 items-center gap-2 rounded-full bg-ink pl-5 pr-1.5 text-sm font-medium text-bg">
+                  <Link href={`/contact?type=${encodeURIComponent(s.title)}`} className="group flex h-12 items-center gap-2 rounded-[3px] bg-ink pl-5 pr-1.5 text-sm font-medium text-bg">
                     Plan this <span className="grid h-9 w-9 place-items-center rounded-full bg-accent text-white transition group-hover:rotate-45"><ArrowUpRight className="h-4 w-4" /></span>
                   </Link>
                   <span className="text-sm text-muted">From <b className="text-ink">{inr(s.startingPrice, true)}</b></span>

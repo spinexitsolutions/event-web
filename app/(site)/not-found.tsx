@@ -8,7 +8,7 @@ export default function NotFound() {
         Lost<span className="accent-word text-accent">?</span>
       </h1>
       <p className="mt-6 max-w-md text-lg text-muted">This page left the party early. Let&apos;s get you back to where the music is.</p>
-      <Link href="/" className="mt-10 rounded-full bg-ink px-6 py-4 text-bg transition hover:bg-accent">Back to home</Link>
+      <Link href="/" className="mt-10 rounded-[3px] bg-ink px-6 py-4 text-bg transition hover:bg-accent">Back to home</Link>
     </section>
   );
 }

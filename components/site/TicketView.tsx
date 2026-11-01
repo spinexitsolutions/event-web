@@ -63,7 +63,7 @@ export function TicketView({ booking: b, event, qr }: { booking: Booking; event?
             <div className="relative">
               <div className="flex items-center justify-between">
                 <span className="eyebrow text-white/50">Admit {b.qty}</span>
-                <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium">{b.ticket}</span>
+                <span className="rounded-[3px] bg-white px-2 py-0.5 text-xs font-medium text-ink">{b.ticket}</span>
               </div>
               <h2 className="mt-8 text-[clamp(1.8rem,3.4vw,2.75rem)] font-medium leading-[1] tracking-[-0.04em]">{b.eventTitle}</h2>
               {event && d && (
@@ -99,10 +99,10 @@ export function TicketView({ booking: b, event, qr }: { booking: Booking; event?
       </motion.div>
 
       <div className="mt-10 flex flex-wrap justify-center gap-3">
-        <button onClick={() => window.print()} className="flex h-12 items-center gap-2 rounded-full px-5 text-sm ring-1 ring-line transition hover:bg-ink hover:text-bg">
+        <button onClick={() => window.print()} className="flex h-12 items-center gap-2 rounded-[3px] px-5 text-sm ring-1 ring-line transition hover:bg-ink hover:text-bg">
           <Download className="h-4 w-4" /> Save / print ticket
         </button>
-        <Link href="/events" className="flex h-12 items-center gap-2 rounded-full bg-ink px-5 text-sm text-bg transition hover:bg-accent">
+        <Link href="/events" className="flex h-12 items-center gap-2 rounded-[3px] bg-ink px-5 text-sm text-bg transition hover:bg-accent">
           More events <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>

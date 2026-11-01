@@ -29,8 +29,8 @@ export default function ContactPage() {
         </div>
         <div className="space-y-3 md:col-span-5">
           {cards.map(({ icon: I, label, value, href }) => (
-            <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="group flex items-center gap-4 rounded-[22px] bg-white p-5 ring-1 ring-line transition hover:ring-ink/30">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent-soft text-accent transition group-hover:bg-accent group-hover:text-white">
+            <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="group flex items-center gap-4 rounded-[4px] bg-white p-5 ring-1 ring-line transition hover:ring-ink/30">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[4px] bg-accent-soft text-accent transition group-hover:bg-accent group-hover:text-white">
                 <I className="h-5 w-5" />
               </span>
               <span className="min-w-0">
@@ -39,11 +39,11 @@ export default function ContactPage() {
               </span>
             </a>
           ))}
-          <div className="flex items-center gap-3 rounded-[22px] bg-dark p-5 text-white">
+          <div className="flex items-center gap-3 rounded-[4px] bg-dark p-5 text-white">
             <Clock className="h-5 w-5 text-accent" />
             <span className="text-sm">{b.hours}</span>
           </div>
-          <div className="overflow-hidden rounded-[22px] ring-1 ring-line">
+          <div className="overflow-hidden rounded-[4px] ring-1 ring-line">
             <iframe title="Studio map" loading="lazy" className="h-64 w-full grayscale" src={`https://maps.google.com/maps?q=${encodeURIComponent(b.address + ", " + b.city)}&z=15&output=embed`} />
           </div>
         </div>

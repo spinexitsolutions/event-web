@@ -69,7 +69,7 @@ export function BookingWidget({ event }: { event: EventItem }) {
                       setTier(i);
                       setQty(1);
                     }}
-                    className={cn("relative w-full rounded-2xl p-4 text-left ring-1 transition", active ? "bg-accent-soft/60 ring-accent" : "ring-line hover:ring-ink/30", soldOut && "cursor-not-allowed opacity-45")}
+                    className={cn("relative w-full rounded-[4px] p-4 text-left ring-1 transition", active ? "bg-accent-soft/60 ring-accent" : "ring-line hover:ring-ink/30", soldOut && "cursor-not-allowed opacity-45")}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
@@ -122,7 +122,7 @@ export function BookingWidget({ event }: { event: EventItem }) {
                 <span className="tabular-nums">{inr(t.price * qty + fee)}</span>
               </div>
             </div>
-            <button onClick={() => setStep(2)} className="mt-5 flex h-14 w-full items-center justify-center gap-2 rounded-full bg-ink font-medium text-bg transition hover:bg-accent">
+            <button onClick={() => setStep(2)} className="mt-5 flex h-14 w-full items-center justify-center gap-2 rounded-[3px] bg-ink font-medium text-bg transition hover:bg-accent">
               Continue <ArrowRight className="h-4 w-4" />
             </button>
           </motion.div>
@@ -142,18 +142,18 @@ export function BookingWidget({ event }: { event: EventItem }) {
                   type={type}
                   value={form[k]}
                   onChange={(e) => setForm({ ...form, [k]: e.target.value })}
-                  className="h-12 w-full rounded-xl bg-bg px-4 outline-none ring-1 ring-line transition focus:ring-2 focus:ring-accent"
+                  className="h-12 w-full rounded-[3px] bg-bg px-4 outline-none ring-1 ring-line transition focus:ring-2 focus:ring-accent"
                 />
               </label>
             ))}
-            <div className="flex items-center justify-between rounded-xl bg-bg p-3 text-sm">
+            <div className="flex items-center justify-between rounded-[3px] bg-bg p-3 text-sm">
               <span>
                 {qty} × {t.name}
               </span>
               <b className="tabular-nums">{inr(t.price * qty + fee)}</b>
             </div>
             {err && <p className="text-sm text-red-600">{err}</p>}
-            <button disabled={busy} className="flex h-14 w-full items-center justify-center gap-2 rounded-full bg-accent font-medium text-white transition hover:brightness-110 disabled:opacity-70">
+            <button disabled={busy} className="flex h-14 w-full items-center justify-center gap-2 rounded-[3px] bg-accent font-medium text-white transition hover:brightness-110 disabled:opacity-70">
               {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
               {busy ? "Confirming…" : "Confirm booking"}
             </button>

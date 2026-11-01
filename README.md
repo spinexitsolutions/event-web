@@ -1,6 +1,6 @@
 # Lumé — Event management website + Admin (CRM & CMS)
 
-A demo-ready event studio website (type: Bricolage Grotesque + Manrope, colour: electric indigo × neon lime) built with **Next.js 16 (App Router)**, **Tailwind CSS 4**, **Framer Motion** and **Lenis** smooth scroll — plus a full admin panel to run the business and control the entire site.
+A demo-ready event studio website (editorial system: Host Grotesk only, paper × ink, one accent) built with **Next.js 16 (App Router)**, **Tailwind CSS 4**, **Framer Motion** and **Lenis** smooth scroll — plus a full admin panel to run the business and control the entire site.
 
 ## Run it
 
