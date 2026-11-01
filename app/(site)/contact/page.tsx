@@ -20,7 +20,7 @@ export default function ContactPage() {
   ];
   return (
     <>
-      <PageHeader label="Plan an event" title="Tell us" accent="the dream." text="Four quick questions. A real producer — not a bot — replies within 24 hours with first ideas and a rough budget." />
+      <PageHeader variant="wide" label="Plan an event" title="Tell us" accent="the dream." text="Four quick questions. A real producer — not a bot — replies within 24 hours with first ideas and a rough budget." />
       <section className="container-x grid gap-10 pb-16 md:grid-cols-12">
         <div className="md:col-span-7">
           <Suspense fallback={<div className="h-[560px] rounded-[var(--radius)] bg-white ring-1 ring-line" />}>

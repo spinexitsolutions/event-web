@@ -26,7 +26,7 @@ export default function Home() {
     statement: <Statement />,
     services: <ServicesStack services={db.services} />,
     events: <EventsRail events={featured.length ? featured : upcoming} />,
-    process: <Process />,
+    process: <Process images={db.gallery.filter((g) => g.shape !== "wide").map((g) => g.image)} />,
     gallery: <GalleryParallax items={db.gallery} />,
     testimonials: <Testimonials items={db.testimonials} />,
     packages: <Packages items={db.packages} />,

@@ -15,7 +15,7 @@ export default function ServicesPage() {
   const db = getDb();
   return (
     <>
-      <PageHeader label="Services" title="One studio." accent="Every format." text="Specialist teams for weddings, corporate, live music, launches and private celebrations — sharing one design language and one obsession with detail." />
+      <PageHeader variant="split" image={db.services[0]?.image} label="Services" title="One studio." accent="Every format." text="Specialist teams for weddings, corporate, live music, launches and private celebrations — sharing one design language and one obsession with detail." />
       <section className="container-x pb-12">
         {db.services.map((s, i) => (
           <article id={s.slug} key={s.id} className="grid scroll-mt-28 gap-8 border-t border-line py-14 md:grid-cols-12 md:gap-10 md:py-20">
@@ -50,7 +50,7 @@ export default function ServicesPage() {
           </article>
         ))}
       </section>
-      <Process />
+      <Process images={db.services.map((s) => s.image)} />
       <Packages items={db.packages} />
       <FaqList items={db.faqs} />
     </>

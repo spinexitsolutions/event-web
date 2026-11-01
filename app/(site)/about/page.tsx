@@ -12,7 +12,7 @@ export default function AboutPage() {
   const a = db.settings.about;
   return (
     <>
-      <PageHeader label="About the studio" title="Obsessed with" accent="the details." text={a.heading} />
+      <PageHeader variant="split" image={db.team[0]?.photo} label="About the studio" title="Obsessed with" accent="the details." text={a.heading} />
       <div className="container-x">
         <ParallaxImage src={a.image} alt="Lumé studio" className="aspect-[4/5] w-full rounded-[var(--radius)] md:aspect-[21/9]" amount={14} />
       </div>

@@ -11,7 +11,7 @@ export default function PortfolioPage() {
   const db = getDb();
   return (
     <>
-      <PageHeader label="Portfolio" title="Moments" accent="we made." text="A small selection from 1,200+ events across 40 cities. Tap any frame to open it." />
+      <PageHeader variant="center" label="Portfolio" title="Moments" accent="we made" text="A small selection from 1,200+ events across 40 cities. Tap any frame to open it." />
       <PortfolioGrid items={db.gallery} />
       <Testimonials items={db.testimonials} />
     </>

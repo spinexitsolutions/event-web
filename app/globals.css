@@ -23,6 +23,7 @@
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --font-wide: var(--font-wide), var(--font-display), sans-serif;
   --radius-xl2: var(--radius);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
@@ -138,6 +139,26 @@
     line-height: 1.75;
     color: color-mix(in oklab, var(--ink) 78%, transparent);
     font-size: 1.0625rem;
+  }
+}
+
+@layer components {
+  .font-wide {
+    font-family: var(--font-wide), sans-serif;
+    letter-spacing: -0.04em;
+  }
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--stroke, var(--ink));
+  }
+  .condensed {
+    font-family: var(--font-display), sans-serif;
+    font-stretch: 75%;
+    font-variation-settings: "wdth" 75, "opsz" 96;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.82;
   }
 }
 

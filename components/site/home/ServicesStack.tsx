@@ -15,16 +15,31 @@ export function ServicesStack({ services }: { services: Service[] }) {
   return (
     <section className="relative py-24 md:py-36">
       <div className="container-x">
-        <div className="grid gap-8 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-8">
-            <SectionLabel index="02">What we do</SectionLabel>
-            <h2 className="mt-5 text-[clamp(2.5rem,7vw,6.5rem)]">
-              <SplitLines lineClassName="display" lines={["Every kind of", <span key="a"><span className="accent-word text-accent">gathering</span>, designed.</span>]} />
+        <div className="grid gap-10 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="flex items-center gap-2 text-[13px] font-semibold text-muted">
+              <span className="h-2 w-2 rounded-full bg-accent" /> One studio, every format
+            </p>
+            <h2 className="condensed mt-4 text-[clamp(4.5rem,15vw,14rem)]">
+              What we
+              <br />
+              <span className="text-outline">do</span>
+              <span className="ml-3 inline-grid h-[0.42em] min-w-[0.8em] translate-y-[-0.9em] place-items-center rounded-full bg-pop px-[0.15em] font-wide text-[0.16em] font-bold text-dark">{String(services.length).padStart(2, "0")}</span>
             </h2>
           </div>
-          <p className="max-w-sm text-muted md:col-span-4 md:justify-self-end">
-            One studio, every format. Five specialist teams who share a single obsession: how your guests will feel.
-          </p>
+          <ul className="md:col-span-4 md:col-start-9">
+            {services.map((s, i) => (
+              <li key={s.id}>
+                <a href={`#${s.slug}`} className="group flex items-center justify-between border-b border-line py-3 text-lg font-semibold transition hover:pl-2 hover:text-accent">
+                  <span>
+                    <span className="mr-3 font-wide text-xs text-muted">0{i + 1}</span>
+                    {s.title}
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div ref={ref} className="relative mt-14 md:mt-20">

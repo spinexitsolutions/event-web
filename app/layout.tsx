@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Manrope } from "next/font/google";
+import { Bricolage_Grotesque, Manrope, Unbounded } from "next/font/google";
 import { getDb } from "@/lib/db";
 import "./globals.css";
 
 // Display: characterful grotesque with width + optical-size axes. Body: clean geometric sans.
 const display = Bricolage_Grotesque({ subsets: ["latin"], axes: ["opsz", "wdth"], variable: "--font-display", display: "swap" });
 const sans = Manrope({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+// Wide display for numbers, prices and tickers
+const wide = Unbounded({ subsets: ["latin"], variable: "--font-wide", display: "swap" });
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo, brand } = getDb().settings;
@@ -25,7 +27,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${wide.variable}`} suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );

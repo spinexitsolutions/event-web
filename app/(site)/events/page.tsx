@@ -10,7 +10,7 @@ export default function EventsPage() {
   const events = getDb().events.filter((e) => e.status !== "draft");
   return (
     <>
-      <PageHeader label="Tickets & experiences" title="What's" accent="happening." text="Festivals, dinners, summits and nights out — designed and hosted by our studio. Book in seconds, check in with a QR." />
+      <PageHeader variant="wide" label="Tickets & experiences" title="What's" accent="happening." text="Festivals, dinners, summits and nights out — designed and hosted by our studio. Book in seconds, check in with a QR." />
       <EventsBrowser events={events} />
     </>
   );

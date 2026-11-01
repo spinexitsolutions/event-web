@@ -14,7 +14,7 @@ export default function JournalPage() {
   const [lead, ...rest] = posts;
   return (
     <>
-      <PageHeader label="Journal" title="Notes from" accent="backstage." text="Guides, behind-the-scenes and ideas from the people who build events for a living." />
+      <PageHeader variant="center" label="Journal" title="Notes" accent="backstage" text="Guides, behind-the-scenes and ideas from the people who build events for a living." />
       {lead && (
         <section className="container-x pb-16">
           <Link href={`/journal/${lead.slug}`} className="group grid overflow-hidden rounded-[var(--radius)] bg-dark text-white md:grid-cols-2" data-cursor="Read">

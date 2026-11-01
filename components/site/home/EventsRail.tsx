@@ -27,13 +27,33 @@ export function EventsRail({ events }: { events: EventItem[] }) {
   const header = (
     <div className="flex w-[82vw] shrink-0 flex-col justify-between pr-6 md:w-[34vw] md:pr-16">
       <div>
-        <SectionLabel index="03" className="text-white/50">
-          Upcoming
-        </SectionLabel>
-        <h2 className="mt-5 text-[clamp(2.75rem,6.4vw,6rem)] text-white">
-          <SplitLines lineClassName="display" lines={["Get on", <span key="l" className="accent-word text-pop">the list.</span>]} />
-        </h2>
-        <p className="mt-6 max-w-xs text-white/60">Ticketed experiences we design and host ourselves. Limited capacity, always.</p>
+        <p className="flex items-center gap-2 text-[13px] font-semibold text-white/60">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pop opacity-70" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-pop" />
+          </span>
+          Live box office
+        </p>
+        <div className="mt-4 flex items-end gap-3 text-white">
+          <span className="font-wide text-[clamp(6rem,11vw,10rem)] font-bold leading-[0.8] tracking-[-0.06em] text-pop">{String(events.length).padStart(2, "0")}</span>
+          <span className="pb-2 text-xl font-bold leading-tight tracking-tight">
+            shows
+            <br />
+            on sale
+          </span>
+        </div>
+        <div className="mt-8 rounded-2xl bg-white/5 p-1 ring-1 ring-white/10">
+          {events.slice(0, 3).map((e) => {
+            const d = new Date(e.date + "T00:00:00");
+            return (
+              <Link key={e.id} href={`/events/${e.slug}`} className="grid grid-cols-[64px_1fr_auto] items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10 hover:text-white">
+                <span className="font-wide text-xs font-bold text-pop">{d.toLocaleString("en-US", { day: "2-digit", month: "short" }).toUpperCase()}</span>
+                <span className="truncate font-semibold">{e.title}</span>
+                <span className="text-xs text-white/45">{e.city}</span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
       <Link href="/events" className="group mt-8 hidden w-fit items-center gap-3 text-white md:flex">
         <span className="grid h-12 w-12 place-items-center rounded-full bg-accent transition group-hover:rotate-45">
@@ -45,7 +65,7 @@ export function EventsRail({ events }: { events: EventItem[] }) {
   );
 
   return (
-    <section ref={section} className="relative bg-dark md:h-[300vh]" style={{ height: undefined }}>
+    <section ref={section} className="relative bg-dark md:h-[300vh]">
       {/* Desktop: pinned horizontal scroll */}
       <div className="sticky top-0 hidden h-screen items-center overflow-hidden md:flex">
         <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-accent/25 blur-[120px]" />

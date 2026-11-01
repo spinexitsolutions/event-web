@@ -210,7 +210,7 @@ export function ClipImage({ src, alt, className, delay = 0 }: { src: string; alt
 }
 
 /** Infinite marquee whose direction follows scroll direction */
-export function Marquee({ children, speed = 40, className }: { children: ReactNode; speed?: number; className?: string }) {
+export function Marquee({ children, speed = 40, className, reverse = false }: { children: ReactNode; speed?: number; className?: string; reverse?: boolean }) {
   const { scrollY } = useScroll();
   const [dir, setDir] = useState<1 | -1>(1);
   useEffect(() => {
@@ -225,7 +225,7 @@ export function Marquee({ children, speed = 40, className }: { children: ReactNo
     <div className={cn("flex overflow-hidden", className)}>
       <div
         className="flex shrink-0 whitespace-nowrap"
-        style={{ animation: `marquee ${speed}s linear infinite`, animationDirection: dir === 1 ? "normal" : "reverse" }}
+        style={{ animation: `marquee ${speed}s linear infinite`, animationDirection: (dir === 1) !== reverse ? "normal" : "reverse" }}
       >
         <div className="flex shrink-0">{children}</div>
         <div className="flex shrink-0" aria-hidden>
