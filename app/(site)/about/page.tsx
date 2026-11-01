@@ -27,7 +27,7 @@ export default function AboutPage() {
       <section className="container-x grid gap-4 pb-12 md:grid-cols-3">
         {a.values.map((v, i) => (
           <Reveal key={v.title} delay={i * 0.1} className="rounded-[var(--radius)] bg-white p-8 ring-1 ring-line">
-            <span className="serif-accent text-5xl text-accent">0{i + 1}</span>
+            <span className="accent-word text-5xl text-accent">0{i + 1}</span>
             <h3 className="mt-8 text-2xl font-medium tracking-tight">{v.title}</h3>
             <p className="mt-3 text-muted">{v.text}</p>
           </Reveal>

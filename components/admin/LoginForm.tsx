@@ -19,7 +19,7 @@ export function LoginForm({ brand, image, demo }: { brand: string; image: string
         <div className="absolute bottom-12 left-12 right-12 text-white">
           <p className="text-[56px] font-medium leading-[0.95] tracking-[-0.045em]">
             Run every event <br />
-            from <span className="serif-accent text-accent">one place.</span>
+            from <span className="accent-word text-accent">one place.</span>
           </p>
           <p className="mt-4 max-w-md text-white/70">Leads, bookings, content and the entire website — controlled from this studio dashboard.</p>
         </div>

@@ -1,6 +1,6 @@
 # Lumé — Event management website + Admin (CRM & CMS)
 
-A demo-ready event studio website built with **Next.js 16 (App Router)**, **Tailwind CSS 4**, **Framer Motion** and **Lenis** smooth scroll — plus a full admin panel to run the business and control the entire site.
+A demo-ready event studio website (type: Bricolage Grotesque + Manrope, colour: electric indigo × neon lime) built with **Next.js 16 (App Router)**, **Tailwind CSS 4**, **Framer Motion** and **Lenis** smooth scroll — plus a full admin panel to run the business and control the entire site.
 
 ## Run it
 
@@ -19,7 +19,7 @@ Production: `npm run build && npm start`.
 | --- | --- |
 | Intro / preloader — 3 styles (counter + words, big words, logo reveal), curved curtain exit | every first load |
 | “Dynamic Island” navbar — morphs from a pill into a full menu with image previews, live clock, scroll-progress ring; docks to the **bottom** on mobile for thumb reach | global |
-| Hero with masked line reveal, inline image pill, magnetic CTAs, image that **expands to full-bleed on scroll**, live countdown to the next event | `/` |
+| **“Stage” hero** — dark stage with a cursor-following spotlight (auto-drifts on mobile), Ken-Burns event slideshow with progress index, letter-by-letter rolling word, 3D-tilt ticket card with live countdown, “now booking” ticker; shrinks into a card on scroll | `/` |
 | Scroll-direction marquee, Apple-style scroll-lit statement, animated counters | `/` |
 | Sticky **stacking service cards**, **pinned horizontal** event rail (snap carousel on mobile) | `/` |
 | Scroll-progress process timeline, 3-column **parallax gallery**, testimonials with progress, spotlight pricing cards, FAQ accordion, scaling CTA with rotating text ring | `/` |
@@ -47,3 +47,5 @@ Content is stored in a JSON file (`data/db.json`, created on first change, seede
 Payments are mocked in checkout — plug in Razorpay/Stripe in `app/api/public/booking/route.ts`.
 
 Images: Unsplash.
+
+> Already ran an older version? Admin → Site settings → General → **Reset demo** to load the new theme & hero copy.

@@ -57,7 +57,7 @@ export function SiteProvider({ settings, children }: { settings: Settings; child
 
   if (!settings.theme.smoothScroll) return body;
   return (
-    <ReactLenis root options={{ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true }}>
+    <ReactLenis root options={{ lerp: 0.085, wheelMultiplier: 0.95, smoothWheel: true, touchMultiplier: 1.2 }}>
       {body}
     </ReactLenis>
   );

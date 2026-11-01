@@ -46,7 +46,7 @@ export function TicketView({ booking: b, event, qr }: { booking: Booking; event?
         <Check className="h-8 w-8" />
       </motion.span>
       <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: EASE, delay: 0.5 }} className="mt-6 text-center text-[clamp(2.5rem,6vw,5rem)] font-medium leading-none tracking-[-0.045em]">
-        You&apos;re <span className="serif-accent text-accent">in</span>, {b.name.split(" ")[0]}.
+        You&apos;re <span className="accent-word text-accent">in</span>, {b.name.split(" ")[0]}.
       </motion.h1>
       <p className="mt-4 text-center text-muted">A confirmation has been sent to {b.email}. Show this QR at the entrance.</p>
 

@@ -19,7 +19,7 @@ export function ServicesStack({ services }: { services: Service[] }) {
           <div className="md:col-span-8">
             <SectionLabel index="02">What we do</SectionLabel>
             <h2 className="mt-5 text-[clamp(2.5rem,7vw,6.5rem)]">
-              <SplitLines lineClassName="display" lines={["Every kind of", <span key="a"><span className="serif-accent text-accent">gathering</span>, designed.</span>]} />
+              <SplitLines lineClassName="display" lines={["Every kind of", <span key="a"><span className="accent-word text-accent">gathering</span>, designed.</span>]} />
             </h2>
           </div>
           <p className="max-w-sm text-muted md:col-span-4 md:justify-self-end">

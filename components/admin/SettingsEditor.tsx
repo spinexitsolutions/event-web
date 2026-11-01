@@ -28,12 +28,12 @@ const TAB_KEYS: Record<Tab, (keyof Settings)[]> = {
 };
 
 const PRESETS = [
-  { name: "Lumé Vermilion", accent: "#FF5B2E", accentSoft: "#FFE3D8", background: "#F4F1EB" },
-  { name: "Electric Violet", accent: "#6C4BFF", accentSoft: "#E9E4FF", background: "#F4F3F8" },
-  { name: "Emerald", accent: "#0F9D6B", accentSoft: "#D9F3E8", background: "#F2F4F0" },
-  { name: "Champagne", accent: "#B98A3E", accentSoft: "#F3E7D2", background: "#F6F2EA" },
-  { name: "Hot Pink", accent: "#FF2E7E", accentSoft: "#FFDDE9", background: "#F7F2F3" },
-  { name: "Ocean", accent: "#0A84FF", accentSoft: "#DCEBFF", background: "#F1F4F7" },
+  { name: "Indigo × Lime", accent: "#5332FF", accentSoft: "#E7E2FF", pop: "#D4FF3F", background: "#F3F1EC" },
+  { name: "Vermilion × Sand", accent: "#FF4D1F", accentSoft: "#FFE1D6", pop: "#FFD43B", background: "#F4F1EB" },
+  { name: "Magenta × Mint", accent: "#E5177E", accentSoft: "#FFDCEC", pop: "#6CFFC8", background: "#F6F2F3" },
+  { name: "Emerald × Gold", accent: "#0B8A5E", accentSoft: "#D6F1E5", pop: "#F5C842", background: "#F2F3EE" },
+  { name: "Ocean × Coral", accent: "#0A6CFF", accentSoft: "#DCEBFF", pop: "#FF8A65", background: "#F1F3F6" },
+  { name: "Noir × Champagne", accent: "#1F1B16", accentSoft: "#ECE4D6", pop: "#E8C98A", background: "#F5F1EA" },
 ];
 
 export function SettingsEditor({ initial }: { initial: Settings }) {
@@ -235,9 +235,10 @@ function Appearance({ s, up }: TabProps) {
         <Card title="Colour presets">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {PRESETS.map((p) => (
-              <button key={p.name} onClick={() => up("theme", { accent: p.accent, accentSoft: p.accentSoft, background: p.background })} className={cn("flex items-center gap-3 rounded-2xl p-3 text-left ring-1 transition", t.accent.toLowerCase() === p.accent.toLowerCase() ? "ring-2 ring-[#1d1d1f]" : "ring-black/5 hover:ring-black/20")}>
+              <button key={p.name} onClick={() => up("theme", { accent: p.accent, accentSoft: p.accentSoft, pop: p.pop, background: p.background })} className={cn("flex items-center gap-3 rounded-2xl p-3 text-left ring-1 transition", t.accent.toLowerCase() === p.accent.toLowerCase() ? "ring-2 ring-[#1d1d1f]" : "ring-black/5 hover:ring-black/20")}>
                 <span className="flex -space-x-1.5">
                   <span className="h-7 w-7 rounded-full ring-2 ring-white" style={{ background: p.accent }} />
+                  <span className="h-7 w-7 rounded-full ring-2 ring-white" style={{ background: p.pop }} />
                   <span className="h-7 w-7 rounded-full ring-2 ring-white" style={{ background: p.background }} />
                 </span>
                 <span className="text-[13px] font-medium">{p.name}</span>
@@ -251,6 +252,7 @@ function Appearance({ s, up }: TabProps) {
               [
                 ["accent", "Accent"],
                 ["accentSoft", "Accent (soft)"],
+                ["pop", "Pop / highlight"],
                 ["background", "Background"],
                 ["ink", "Text"],
                 ["dark", "Dark sections"],
@@ -280,7 +282,7 @@ function Appearance({ s, up }: TabProps) {
           <div className="p-6">
             <p className="text-[11px] uppercase tracking-[0.14em] opacity-60">Event studio</p>
             <p className="mt-3 text-[40px] font-medium leading-[0.95] tracking-[-0.045em]">
-              We design <span className="serif-accent" style={{ color: t.accent }}>moments.</span>
+              We design <span className="accent-word" style={{ color: t.accent }}>moments.</span>
             </p>
             <div className="mt-6 flex gap-2">
               <span className="rounded-full px-4 py-2.5 text-[13px] font-medium text-white" style={{ background: t.accent }}>
@@ -369,7 +371,7 @@ function IntroPreview({ s }: { s: Settings }) {
             <span style={{ color: theme.accent }}>.</span>
           </span>
           <AnimatePresence mode="popLayout">
-            <motion.p key={w} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} className="serif-accent text-center text-[40px]">
+            <motion.p key={w} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} className="accent-word text-center text-[40px]">
               {words[w]}
             </motion.p>
           </AnimatePresence>
@@ -498,10 +500,10 @@ function HomeTab({ s, up, setS }: TabProps) {
           <Label label="Headline — line 1">
             <Input value={h.line1} onChange={(e) => up("hero", { line1: e.target.value })} />
           </Label>
-          <Label label="Headline — accent word (italic)">
-            <Input value={h.accent} onChange={(e) => up("hero", { accent: e.target.value })} />
+          <Label label="Rotating words" hint="One per line — animated in the headline">
+            <Textarea rows={3} value={(h.rotating || [h.accent]).join("\n")} onChange={(e) => up("hero", { rotating: e.target.value.split("\n") })} onBlur={(e) => up("hero", { rotating: e.target.value.split("\n").map((w) => w.trim()).filter(Boolean) })} />
           </Label>
-          <Label label="Headline — line 3">
+          <Label label="Headline — line 2">
             <Input value={h.line2} onChange={(e) => up("hero", { line2: e.target.value })} />
           </Label>
           <Label label="Subtitle" className="sm:col-span-2">
@@ -519,7 +521,7 @@ function HomeTab({ s, up, setS }: TabProps) {
           <Label label="Secondary link">
             <Input value={h.secondaryHref} onChange={(e) => up("hero", { secondaryHref: e.target.value })} />
           </Label>
-          <Label label="Hero image (expands on scroll)" className="sm:col-span-2">
+          <Label label="Hero stage image (first slide — featured events follow)" className="sm:col-span-2">
             <ImageInput value={h.image} onChange={(v) => up("hero", { image: v })} />
           </Label>
         </Grid>

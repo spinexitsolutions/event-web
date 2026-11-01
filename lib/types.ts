@@ -51,6 +51,7 @@ export interface Settings {
   theme: {
     accent: string;
     accentSoft: string;
+    pop: string;
     background: string;
     ink: string;
     dark: string;
@@ -75,6 +76,7 @@ export interface Settings {
     eyebrow: string;
     line1: string;
     accent: string;
+    rotating: string[];
     line2: string;
     subtitle: string;
     image: string;

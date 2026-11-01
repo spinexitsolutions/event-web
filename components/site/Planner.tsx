@@ -60,7 +60,7 @@ export function Planner({ services }: { services: string[] }) {
           <Check className="h-8 w-8" />
         </motion.span>
         <h3 className="mt-6 text-4xl font-medium tracking-[-0.04em]">
-          Thank you, <span className="serif-accent text-accent">{data.name.split(" ")[0]}</span>.
+          Thank you, <span className="accent-word text-accent">{data.name.split(" ")[0]}</span>.
         </h3>
         <p className="mt-3 max-w-sm text-white/60">A producer will reach out within 24 hours with first ideas for your {data.eventType.toLowerCase()}.</p>
       </motion.div>

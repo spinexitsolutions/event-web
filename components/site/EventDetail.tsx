@@ -74,7 +74,7 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
             <div className="mt-10 grid grid-cols-2 gap-3">
               {e.highlights.map((h, i) => (
                 <Reveal key={h} delay={i * 0.06} className="rounded-2xl bg-white p-5 ring-1 ring-line">
-                  <span className="serif-accent text-3xl text-accent">0{i + 1}</span>
+                  <span className="accent-word text-3xl text-accent">0{i + 1}</span>
                   <p className="mt-2 font-medium tracking-tight">{h}</p>
                 </Reveal>
               ))}
@@ -119,7 +119,7 @@ export function EventDetail({ e, related }: { e: EventItem; related: EventItem[]
       {related.length > 0 && (
         <section className="container-x pb-24">
           <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-medium tracking-[-0.04em]">
-            You might also <span className="serif-accent text-accent">love</span>
+            You might also <span className="accent-word text-accent">love</span>
           </h2>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r) => (

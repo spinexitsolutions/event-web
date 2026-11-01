@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --accent: #ff5b2e;
-  --accent-soft: #ffe3d8;
-  --bg: #f4f1eb;
-  --ink: #0f0f10;
-  --dark: #0b0b0c;
+  --accent: #5332ff;
+  --accent-soft: #e7e2ff;
+  --pop: #d4ff3f;
+  --bg: #f3f1ec;
+  --ink: #0d0d12;
+  --dark: #0c0b14;
   --radius: 28px;
 }
 
 @theme inline {
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-pop: var(--pop);
   --color-bg: var(--bg);
   --color-ink: var(--ink);
   --color-dark: var(--dark);
@@ -19,8 +21,8 @@
   --color-line: color-mix(in oklab, var(--ink) 11%, transparent);
   --color-card: color-mix(in oklab, white 55%, var(--bg));
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
-  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --font-display: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
   --radius-xl2: var(--radius);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
@@ -36,8 +38,15 @@
     background: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans), system-ui, sans-serif;
-    font-feature-settings: "ss01", "cv11";
     overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    font-optical-sizing: auto;
   }
   ::selection {
     background: var(--accent);
@@ -61,21 +70,26 @@
     }
   }
   .eyebrow {
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-sans), sans-serif;
     font-size: 0.6875rem;
-    letter-spacing: 0.14em;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
   .display {
-    font-weight: 500;
-    letter-spacing: -0.045em;
-    line-height: 0.92;
+    font-family: var(--font-display), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    font-variation-settings: "opsz" 96;
   }
-  .serif-accent {
-    font-family: var(--font-serif), Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.02em;
+  /* Sans-only emphasis: thin + condensed against the heavy display weight */
+  .accent-word {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 250;
+    font-stretch: 78%;
+    font-variation-settings: "wdth" 78, "opsz" 96;
+    letter-spacing: -0.035em;
   }
   .glass {
     background: color-mix(in oklab, var(--bg) 72%, transparent);

@@ -14,11 +14,11 @@ export function MarqueeStrip() {
   const { settings } = useSite();
   return (
     <section className="relative z-10 -mt-[1px] overflow-hidden py-6 md:py-10">
-      <div className="-rotate-2 bg-accent py-4 text-white md:py-6">
+      <div className="-rotate-2 bg-pop py-4 text-dark md:py-6">
         <Marquee speed={38}>
           {settings.marquee.map((m, i) => (
             <span key={i} className="flex items-center gap-8 pr-8 text-[clamp(2rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.04em]">
-              <span className={i % 2 ? "serif-accent" : ""}>{m}</span>
+              <span className={i % 2 ? "accent-word" : ""}>{m}</span>
               <svg viewBox="0 0 24 24" className="h-[0.55em] w-[0.55em] animate-spin-slow" fill="currentColor">
                 <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" />
               </svg>
@@ -45,7 +45,7 @@ export function Statement() {
           <Reveal key={s.label} delay={i * 0.08} className={cn("py-8 md:py-10 md:pr-8", i % 2 === 1 && "border-l border-line pl-5 md:pl-8", i >= 2 && "border-t border-line md:border-t-0", i === 2 && "md:border-l md:pl-8")}>
             <div className="text-[clamp(3rem,6.5vw,6rem)] font-medium leading-none tracking-[-0.05em]">
               <Counter value={s.value} />
-              <span className="serif-accent text-accent">{s.suffix}</span>
+              <span className="accent-word text-accent">{s.suffix}</span>
             </div>
             <p className="mt-3 text-sm text-muted">{s.label}</p>
           </Reveal>
@@ -68,7 +68,7 @@ export function Process() {
           <div className="md:sticky md:top-32">
             <SectionLabel index="04">How we work</SectionLabel>
             <h2 className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]">
-              <SplitLines lineClassName="display" lines={["Calm is", <span key="d" className="serif-accent text-accent">designed.</span>]} />
+              <SplitLines lineClassName="display" lines={["Calm is", <span key="d" className="accent-word text-accent">designed.</span>]} />
             </h2>
             <p className="mt-6 max-w-sm text-muted">Four clear stages, one dedicated producer, and a live dashboard where you can see every decision, vendor and rupee.</p>
             <ClipImage src={settings.about.image} alt="Our team at work" className="mt-10 hidden aspect-[4/3] w-full max-w-sm rounded-[var(--radius)] md:block" />
@@ -121,7 +121,7 @@ export function GalleryParallax({ items }: { items: GalleryItem[] }) {
             Portfolio
           </SectionLabel>
           <h2 className="mt-5 text-[clamp(2.75rem,7vw,6.5rem)]">
-            <SplitLines lineClassName="display" lines={["Moments", <span key="m">we <span className="serif-accent text-accent">made.</span></span>]} />
+            <SplitLines lineClassName="display" lines={["Moments", <span key="m">we <span className="accent-word text-pop">made.</span></span>]} />
           </h2>
         </div>
         <Link href="/portfolio" className="group flex w-fit items-center gap-3">
@@ -229,7 +229,7 @@ export function Packages({ items }: { items: Package[] }) {
           Packages
         </SectionLabel>
         <h2 className="mx-auto mt-5 max-w-4xl text-[clamp(2.5rem,6vw,5.5rem)]">
-          <SplitLines lineClassName="display" lines={[<span key="p">Clear pricing.</span>, <span key="q" className="serif-accent text-accent">No surprises.</span>]} />
+          <SplitLines lineClassName="display" lines={[<span key="p">Clear pricing.</span>, <span key="q" className="accent-word text-accent">No surprises.</span>]} />
         </h2>
       </div>
       <div className="mt-14 grid gap-4 md:mt-20 md:grid-cols-3 md:gap-5">
@@ -238,7 +238,7 @@ export function Packages({ items }: { items: Package[] }) {
             <SpotlightCard dark={p.highlighted}>
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-medium tracking-tight">{p.name}</h3>
-                {p.highlighted && <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-white">Most loved</span>}
+                {p.highlighted && <span className="rounded-full bg-pop px-3 py-1 text-xs font-bold text-dark">Most loved</span>}
               </div>
               <p className={cn("mt-2 text-sm", p.highlighted ? "text-white/60" : "text-muted")}>{p.tagline}</p>
               <div className="mt-8 flex items-baseline gap-2">
@@ -299,7 +299,7 @@ export function Team({ items }: { items: TeamMember[] }) {
     <section className="container-x py-24 md:py-36">
       <SectionLabel index="08">The people</SectionLabel>
       <h2 className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]">
-        <SplitLines lineClassName="display" lines={["Small team.", <span key="b" className="serif-accent text-accent">Big rooms.</span>]} />
+        <SplitLines lineClassName="display" lines={["Small team.", <span key="b" className="accent-word text-accent">Big rooms.</span>]} />
       </h2>
       <div className="mt-12 grid grid-cols-2 gap-3 md:mt-16 md:grid-cols-4 md:gap-5">
         {items.map((m, i) => (
@@ -325,7 +325,7 @@ export function JournalTeaser({ posts }: { posts: Post[] }) {
         <div>
           <SectionLabel index="09">Journal</SectionLabel>
           <h2 className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]">
-            <SplitLines lineClassName="display" lines={[<span key="n">Notes from</span>, <span key="o" className="serif-accent text-accent">backstage.</span>]} />
+            <SplitLines lineClassName="display" lines={[<span key="n">Notes from</span>, <span key="o" className="accent-word text-accent">backstage.</span>]} />
           </h2>
         </div>
         <Link href="/journal" className="hidden items-center gap-2 md:flex">
@@ -368,7 +368,7 @@ export function FaqList({ items, label = true }: { items: Faq[]; label?: boolean
         <div className="md:col-span-4">
           {label && <SectionLabel index="10">FAQ</SectionLabel>}
           <h2 className="mt-5 text-[clamp(2.25rem,4.6vw,4rem)]">
-            <SplitLines lineClassName="display" lines={["Questions,", <span key="a" className="serif-accent text-accent">answered.</span>]} />
+            <SplitLines lineClassName="display" lines={["Questions,", <span key="a" className="accent-word text-accent">answered.</span>]} />
           </h2>
         </div>
         <div className="md:col-span-8">
@@ -413,7 +413,7 @@ export function Cta() {
         <div className="relative grid gap-12 md:grid-cols-12 md:items-end">
           <div className="md:col-span-8">
             <h2 className="text-[clamp(2.9rem,8.5vw,8.5rem)]">
-              <SplitLines lineClassName="display" lines={[c.heading, <span key="u" className="serif-accent">{c.accent}.</span>]} />
+              <SplitLines lineClassName="display" lines={[c.heading, <span key="u" className="accent-word text-pop">{c.accent}.</span>]} />
             </h2>
             <p className="mt-8 max-w-md text-lg text-white/80">{c.text}</p>
           </div>

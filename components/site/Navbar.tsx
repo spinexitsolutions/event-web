@@ -42,7 +42,7 @@ function ProgressDot() {
         <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" strokeOpacity="0.18" strokeWidth="1.5" />
         <motion.circle cx="16" cy="16" r="14" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" style={{ pathLength: p }} />
       </svg>
-      <span className="h-2 w-2 rounded-full bg-accent animate-pulse-dot" />
+      <span className="h-2 w-2 rounded-full bg-pop animate-pulse-dot" />
     </span>
   );
 }
@@ -84,9 +84,9 @@ export function Navbar() {
           href={announcement.href || "#"}
           className="relative z-40 hidden h-10 items-center justify-center gap-3 bg-dark text-[13px] text-white/80 md:flex"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-dot" />
+          <span className="h-1.5 w-1.5 rounded-full bg-pop animate-pulse-dot" />
           <span>{announcement.text}</span>
-          <ArrowUpRight className="h-3.5 w-3.5 text-accent" />
+          <ArrowUpRight className="h-3.5 w-3.5 text-pop" />
         </Link>
       )}
 
@@ -160,7 +160,7 @@ export function Navbar() {
                               className={cn("relative z-10 block px-3.5 py-2 text-[14px] transition-colors", isActive(it.href) ? "text-white" : "text-white/65 hover:text-white")}
                             >
                               {it.label}
-                              {isActive(it.href) && <span className="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent" />}
+                              {isActive(it.href) && <span className="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-pop" />}
                             </Link>
                             {hovered === i && (
                               <motion.span layoutId="nav-hover" className="absolute inset-0 rounded-full bg-white/10" transition={{ type: "spring", stiffness: 400, damping: 32 }} />
@@ -187,11 +187,11 @@ export function Navbar() {
 
                   <Link
                     href={nav.ctaHref}
-                    className="group ml-1 flex h-10 items-center gap-2 overflow-hidden rounded-full bg-accent pl-4 pr-1 text-[14px] font-medium text-white"
+                    className="group ml-1 flex h-10 items-center gap-2 overflow-hidden rounded-full bg-pop pl-4 pr-1 text-[14px] font-bold text-dark"
                   >
                     <span className="hidden sm:inline">{nav.ctaLabel}</span>
                     <span className="sm:hidden">Book</span>
-                    <span className="grid h-8 w-8 place-items-center rounded-full bg-white/20 transition-transform duration-500 group-hover:rotate-45">
+                    <span className="grid h-8 w-8 place-items-center rounded-full bg-dark text-pop transition-transform duration-500 group-hover:rotate-45">
                       <ArrowUpRight className="h-4 w-4" />
                     </span>
                   </Link>
@@ -241,13 +241,13 @@ export function Navbar() {
                               <span
                                 className={cn(
                                   "text-[clamp(2rem,5.2vw,3.6rem)] font-medium leading-none tracking-[-0.045em] transition-all duration-500 group-hover:translate-x-2",
-                                  isActive(it.href) ? "text-accent" : "text-white"
+                                  isActive(it.href) ? "text-pop" : "text-white"
                                 )}
                               >
                                 {it.label}
                               </span>
                             </span>
-                            <ArrowUpRight className="h-6 w-6 -translate-x-2 text-accent opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
+                            <ArrowUpRight className="h-6 w-6 -translate-x-2 text-pop opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
                           </Link>
                         </motion.li>
                       ))}
@@ -268,7 +268,7 @@ export function Navbar() {
                           />
                         </AnimatePresence>
                         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5">
-                          <p className="serif-accent text-2xl">{brand.tagline}</p>
+                          <p className="accent-word text-2xl">{brand.tagline}</p>
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-3 text-sm">
@@ -292,7 +292,7 @@ export function Navbar() {
                         </a>
                       ))}
                     </div>
-                    <Link href={nav.ctaHref} className="flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-medium">
+                    <Link href={nav.ctaHref} className="flex h-11 items-center gap-2 rounded-full bg-pop px-5 text-sm font-bold text-dark">
                       {nav.ctaLabel} <ArrowUpRight className="h-4 w-4" />
                     </Link>
                   </div>

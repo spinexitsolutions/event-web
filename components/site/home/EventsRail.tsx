@@ -31,7 +31,7 @@ export function EventsRail({ events }: { events: EventItem[] }) {
           Upcoming
         </SectionLabel>
         <h2 className="mt-5 text-[clamp(2.75rem,6.4vw,6rem)] text-white">
-          <SplitLines lineClassName="display" lines={["Get on", <span key="l" className="serif-accent text-accent">the list.</span>]} />
+          <SplitLines lineClassName="display" lines={["Get on", <span key="l" className="accent-word text-pop">the list.</span>]} />
         </h2>
         <p className="mt-6 max-w-xs text-white/60">Ticketed experiences we design and host ourselves. Limited capacity, always.</p>
       </div>
@@ -64,7 +64,7 @@ export function EventsRail({ events }: { events: EventItem[] }) {
           </Link>
         </motion.div>
         <div className="absolute bottom-10 left-10 right-10 h-px bg-white/10">
-          <motion.div style={{ width: bar }} className="h-px bg-accent" />
+          <motion.div style={{ width: bar }} className="h-px bg-pop" />
         </div>
       </div>
 

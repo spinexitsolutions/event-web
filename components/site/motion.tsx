@@ -238,10 +238,12 @@ export function Marquee({ children, speed = 40, className }: { children: ReactNo
 
 export function SectionLabel({ index, children, className }: { index?: string; children: ReactNode; className?: string }) {
   return (
-    <div className={cn("eyebrow flex items-center gap-3 text-muted", className)}>
-      <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-      {index && <span>{index}</span>}
-      <span>{children}</span>
+    <div className={cn("eyebrow flex items-center gap-2 text-muted", className)}>
+      <span className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 ring-1 ring-current/20">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+        {children}
+      </span>
+      {index && <span className="font-display text-[13px] font-bold tracking-normal opacity-60">({index})</span>}
     </div>
   );
 }

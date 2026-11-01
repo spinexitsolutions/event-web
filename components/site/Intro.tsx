@@ -77,7 +77,7 @@ function CounterStyle({ count, word, wordKey, brand, tagline }: { count: number;
       <div className="flex items-center justify-between">
         <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-lg font-semibold tracking-tight">
           {brand}
-          <span className="text-accent">.</span>
+          <span className="text-pop">.</span>
         </motion.span>
         <span className="eyebrow text-white/50">Loading experience</span>
       </div>
@@ -87,7 +87,7 @@ function CounterStyle({ count, word, wordKey, brand, tagline }: { count: number;
           <AnimatePresence mode="popLayout">
             <motion.span
               key={wordKey}
-              className="serif-accent block"
+              className="accent-word block"
               initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
               animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
               exit={{ y: "-100%", opacity: 0, filter: "blur(8px)" }}
@@ -105,7 +105,7 @@ function CounterStyle({ count, word, wordKey, brand, tagline }: { count: number;
         <span className="eyebrow mb-3 hidden text-white/60 md:block">{tagline}</span>
       </div>
       <div className="mt-5 h-px w-full bg-white/15">
-        <div className="h-px bg-accent transition-[width] duration-100" style={{ width: `${count}%` }} />
+        <div className="h-px bg-pop transition-[width] duration-100" style={{ width: `${count}%` }} />
       </div>
     </div>
   );
@@ -125,12 +125,12 @@ function WordsStyle({ word, wordKey, count }: { word: string; wordKey: number; c
             transition={{ duration: 0.65, ease: EASE_IO }}
           >
             {word}
-            <span className="text-accent">.</span>
+            <span className="text-pop">.</span>
           </motion.span>
         </AnimatePresence>
       </div>
       <div className="absolute bottom-10 left-1/2 w-40 -translate-x-1/2 overflow-hidden rounded-full bg-white/15">
-        <div className="h-1 bg-accent" style={{ width: `${count}%` }} />
+        <div className="h-1 bg-pop" style={{ width: `${count}%` }} />
       </div>
     </div>
   );
@@ -151,7 +151,7 @@ function LogoStyle({ brand, count, tagline }: { brand: string; count: number; ta
           </motion.span>
         ))}
         <motion.span
-          className="text-accent"
+          className="text-pop"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.2 + brand.length * 0.07 }}

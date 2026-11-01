@@ -11,7 +11,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   const db = getDb();
   const { settings } = db;
   const t = settings.theme;
-  const css = `:root{--accent:${t.accent};--accent-soft:${t.accentSoft};--bg:${t.background};--ink:${t.ink};--dark:${t.dark};--radius:${t.radius}px}`;
+  const css = `:root{--accent:${t.accent};--accent-soft:${t.accentSoft};--pop:${t.pop || "#D4FF3F"};--bg:${t.background};--ink:${t.ink};--dark:${t.dark};--radius:${t.radius}px}`;
   return (
     <SiteProvider settings={settings}>
       <style dangerouslySetInnerHTML={{ __html: css }} />

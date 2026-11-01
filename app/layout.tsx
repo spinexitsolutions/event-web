@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import { getDb } from "@/lib/db";
 import "./globals.css";
 
-const sans = Inter_Tight({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+// Display: characterful grotesque with width + optical-size axes. Body: clean geometric sans.
+const display = Bricolage_Grotesque({ subsets: ["latin"], axes: ["opsz", "wdth"], variable: "--font-display", display: "swap" });
+const sans = Manrope({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo, brand } = getDb().settings;
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0c",
+  themeColor: "#0c0b14",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -25,7 +25,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );

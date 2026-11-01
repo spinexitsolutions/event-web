@@ -12,7 +12,16 @@ export default function Home() {
   const upcoming = db.events.filter((e) => e.status === "upcoming").sort((a, b) => a.date.localeCompare(b.date));
   const featured = upcoming.filter((e) => e.featured);
   const map: Record<HomeSectionId, React.ReactNode> = {
-    hero: <Hero next={upcoming[0]} />,
+    hero: (
+      <Hero
+        next={upcoming[0]}
+        upcoming={upcoming}
+        slides={[
+          { image: db.settings.hero.image, title: db.settings.brand.tagline, tag: "Studio" },
+          ...(featured.length ? featured : upcoming).slice(0, 4).map((e) => ({ image: e.image, title: e.title, tag: e.category })),
+        ]}
+      />
+    ),
     marquee: <MarqueeStrip />,
     statement: <Statement />,
     services: <ServicesStack services={db.services} />,

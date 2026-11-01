@@ -9,7 +9,7 @@ export function PageHeader({ label, title, accent, text, children }: { label: st
     <header className="container-x pb-10 pt-12 md:pb-16 md:pt-40">
       <SectionLabel>{label}</SectionLabel>
       <h1 className="mt-6 text-[clamp(3rem,10vw,9.5rem)]">
-        <SplitLines inView={false} waitForIntro delay={0.3} lineClassName="display" lines={accent ? [title, <span key="a" className="serif-accent text-accent">{accent}</span>] : [title]} />
+        <SplitLines inView={false} waitForIntro delay={0.3} lineClassName="display" lines={accent ? [title, <span key="a" className="accent-word text-accent">{accent}</span>] : [title]} />
       </h1>
       <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         {text && (

@@ -20,7 +20,7 @@ export function Footer({ services }: { services: { title: string; slug: string }
           <div className="md:col-span-5">
             <p className="eyebrow text-white/45">Newsletter</p>
             <h3 className="mt-4 text-[clamp(1.75rem,3vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.035em]">
-              Ideas, launches & <span className="serif-accent text-accent">first access</span> to tickets.
+              Ideas, launches & <span className="accent-word text-pop">first access</span> to tickets.
             </h3>
             <div className="mt-6 max-w-md">
               <Newsletter />
@@ -80,7 +80,7 @@ export function Footer({ services }: { services: { title: string; slug: string }
           {(brand.name + ".").split("").map((ch, i) => (
             <motion.span
               key={i}
-              className={`block text-[clamp(6rem,27vw,26rem)] font-semibold leading-[0.78] tracking-[-0.07em] ${ch === "." ? "text-accent" : ""}`}
+              className={`block text-[clamp(6rem,27vw,26rem)] font-semibold leading-[0.78] tracking-[-0.07em] ${ch === "." ? "text-pop" : ""}`}
               initial={{ y: "100%" }}
               whileInView={{ y: "0%" }}
               viewport={{ once: true }}
