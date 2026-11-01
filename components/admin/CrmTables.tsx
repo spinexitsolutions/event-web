@@ -10,8 +10,8 @@ import { cn, fmtDate, inr, timeAgo } from "@/lib/utils";
 
 function SearchBox({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder: string }) {
   return (
-    <label className="flex h-10 flex-1 items-center gap-2 rounded-full bg-white px-4 shadow-[0_0_0_1px_rgba(0,0,0,0.05)] md:max-w-xs">
-      <Search className="h-4 w-4 text-[#8e8e93]" />
+    <label className="flex h-10 flex-1 items-center gap-2 rounded-[3px] bg-white/70 px-4 border border-line md:max-w-xs">
+      <Search className="h-4 w-4 text-muted" />
       <input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="w-full bg-transparent text-[14px] outline-none" />
     </label>
   );
@@ -34,20 +34,20 @@ export function ContactsTable({ contacts }: { contacts: Contact[] }) {
       </PageTitle>
       <div className="mb-4 flex flex-col gap-3 md:flex-row">
         <SearchBox value={q} onChange={setQ} placeholder="Search name, email, phone" />
-        <Select value={type} onChange={(e) => setType(e.target.value)} options={["All", "Client", "Customer", "Prospect"]} className="h-10 bg-white md:w-44" />
+        <Select value={type} onChange={(e) => setType(e.target.value)} options={["All", "Client", "Customer", "Prospect"]} className="h-10 bg-white/70 md:w-44" />
       </div>
       <div className="grid grid-cols-3 gap-3 md:mb-4">
         {(["Client", "Customer", "Prospect"] as const).map((t) => (
-          <div key={t} className="rounded-[18px] bg-white p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.04)]">
-            <p className="text-[12px] text-[#8e8e93]">{t}s</p>
-            <p className="text-[24px] font-semibold tracking-tight">{contacts.filter((c) => c.type === t).length}</p>
+          <div key={t} className="rounded-[4px] bg-white/70 p-4 border border-line">
+            <p className="text-[12px] text-muted">{t}s</p>
+            <p className="text-[24px] font-medium tracking-tight">{contacts.filter((c) => c.type === t).length}</p>
           </div>
         ))}
       </div>
       <Card pad={false} className="mt-3 md:mt-0">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left text-[14px]">
-            <thead className="border-b border-black/5 text-[12px] text-[#8e8e93]">
+            <thead className="border-b border-line text-[12px] text-muted">
               <tr>
                 {["Contact", "Type", "Bookings", "Lifetime spend", "Pipeline", "Last activity"].map((h) => (
                   <th key={h} className="px-4 py-3 font-medium">
@@ -58,13 +58,13 @@ export function ContactsTable({ contacts }: { contacts: Contact[] }) {
             </thead>
             <tbody className="divide-y divide-black/5">
               {list.map((c) => (
-                <tr key={c.email} onClick={() => setOpen(c)} className="cursor-pointer hover:bg-[#f9f9fb]">
+                <tr key={c.email} onClick={() => setOpen(c)} className="cursor-pointer hover:bg-ink/[0.03]">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       <Avatar name={c.name} size={32} />
                       <div>
                         <p className="font-medium">{c.name}</p>
-                        <p className="text-[12px] text-[#8e8e93]">{c.email}</p>
+                        <p className="text-[12px] text-muted">{c.email}</p>
                       </div>
                     </div>
                   </td>
@@ -74,7 +74,7 @@ export function ContactsTable({ contacts }: { contacts: Contact[] }) {
                   <td className="px-4 py-3 tabular-nums">{c.bookings.length}</td>
                   <td className="px-4 py-3 font-medium tabular-nums">{c.spend ? inr(c.spend) : "—"}</td>
                   <td className="px-4 py-3 tabular-nums">{c.pipeline ? inr(c.pipeline, true) : "—"}</td>
-                  <td className="px-4 py-3 text-[#8e8e93]">{timeAgo(c.last)}</td>
+                  <td className="px-4 py-3 text-muted">{timeAgo(c.last)}</td>
                 </tr>
               ))}
             </tbody>
@@ -86,21 +86,21 @@ export function ContactsTable({ contacts }: { contacts: Contact[] }) {
       <Drawer open={!!open} onClose={() => setOpen(null)} title={open?.name || ""}>
         {open && (
           <div className="space-y-4">
-            <div className="flex items-center gap-3 rounded-2xl bg-white p-4">
+            <div className="flex items-center gap-3 rounded-[4px] bg-white/70 p-4">
               <Avatar name={open.name} size={52} />
               <div className="min-w-0 flex-1">
-                <p className="font-semibold">{open.name}</p>
-                <p className="truncate text-[13px] text-[#8e8e93]">{open.email}</p>
-                <p className="text-[13px] text-[#8e8e93]">{open.phone}</p>
+                <p className="font-medium">{open.name}</p>
+                <p className="truncate text-[13px] text-muted">{open.email}</p>
+                <p className="text-[13px] text-muted">{open.phone}</p>
               </div>
               <div className="flex gap-1.5">
-                <a href={`mailto:${open.email}`} className="grid h-9 w-9 place-items-center rounded-full bg-[#f0f0f2]">
+                <a href={`mailto:${open.email}`} className="grid h-9 w-9 place-items-center rounded-full bg-ink/[0.05]">
                   <Mail className="h-4 w-4" />
                 </a>
-                <a href={`tel:${open.phone}`} className="grid h-9 w-9 place-items-center rounded-full bg-[#f0f0f2]">
+                <a href={`tel:${open.phone}`} className="grid h-9 w-9 place-items-center rounded-full bg-ink/[0.05]">
                   <Phone className="h-4 w-4" />
                 </a>
-                <a href={`https://wa.me/${open.phone.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="grid h-9 w-9 place-items-center rounded-full bg-[#e8f8ee] text-[#1a7f3c]">
+                <a href={`https://wa.me/${open.phone.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink">
                   <MessageCircle className="h-4 w-4" />
                 </a>
               </div>
@@ -111,14 +111,14 @@ export function ContactsTable({ contacts }: { contacts: Contact[] }) {
                 ["Bookings", open.bookings.length],
                 ["Pipeline", inr(open.pipeline, true)],
               ].map(([l, v]) => (
-                <div key={l as string} className="rounded-2xl bg-white p-3">
-                  <p className="text-[12px] text-[#8e8e93]">{l}</p>
-                  <p className="text-[18px] font-semibold">{v}</p>
+                <div key={l as string} className="rounded-[4px] bg-white/70 p-3">
+                  <p className="text-[12px] text-muted">{l}</p>
+                  <p className="text-[18px] font-medium">{v}</p>
                 </div>
               ))}
             </div>
-            <div className="rounded-2xl bg-white p-4">
-              <p className="mb-3 text-[14px] font-semibold">Timeline</p>
+            <div className="rounded-[4px] bg-white/70 p-4">
+              <p className="mb-3 text-[14px] font-medium">Timeline</p>
               <ul className="space-y-3">
                 {[...open.leads.map((l) => ({ at: l.createdAt, node: <>Enquiry · {l.eventType} · <Badge tone={STAGE_META[l.stage].tone}>{STAGE_META[l.stage].label}</Badge></> })), ...open.bookings.map((b) => ({ at: b.createdAt, node: <>Booked {b.qty} × {b.ticket} — {b.eventTitle} · <b>{inr(b.total)}</b></> }))]
                   .sort((a, b) => b.at.localeCompare(a.at))
@@ -127,7 +127,7 @@ export function ContactsTable({ contacts }: { contacts: Contact[] }) {
                       <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent" />
                       <div>
                         <p>{t.node}</p>
-                        <p className="text-[12px] text-[#8e8e93]">{fmtDate(t.at, { dateStyle: "medium" })}</p>
+                        <p className="text-[12px] text-muted">{fmtDate(t.at, { dateStyle: "medium" })}</p>
                       </div>
                     </li>
                   ))}
@@ -191,7 +191,7 @@ export function BookingsTable({ initial, events }: { initial: Booking[]; events:
           else setStatus(b, "checked-in");
           setScan("");
         }}
-        className="mb-4 flex items-center gap-2 rounded-[18px] bg-[#1d1d1f] p-2 pl-4 text-white"
+        className="mb-4 flex items-center gap-2 rounded-[4px] bg-ink p-2 pl-4 text-white"
       >
         <ScanLine className="h-5 w-5 shrink-0 text-accent" />
         <input value={scan} onChange={(e) => setScan(e.target.value)} placeholder="Quick check-in: type or scan booking code (e.g. LM-…)" className="h-10 min-w-0 flex-1 bg-transparent text-[14px] outline-none placeholder:text-white/40" />
@@ -202,14 +202,14 @@ export function BookingsTable({ initial, events }: { initial: Booking[]; events:
 
       <div className="mb-4 flex flex-col gap-3 md:flex-row">
         <SearchBox value={q} onChange={setQ} placeholder="Search code, name, email" />
-        <Select value={ev} onChange={(e) => setEv(e.target.value)} options={[{ value: "all", label: "All events" }, ...events.map((e) => ({ value: e.id, label: e.title }))]} className="h-10 bg-white md:w-64" />
-        <Select value={st} onChange={(e) => setSt(e.target.value)} options={[{ value: "all", label: "All statuses" }, "confirmed", "checked-in", "pending", "cancelled"]} className="h-10 bg-white md:w-44" />
+        <Select value={ev} onChange={(e) => setEv(e.target.value)} options={[{ value: "all", label: "All events" }, ...events.map((e) => ({ value: e.id, label: e.title }))]} className="h-10 bg-white/70 md:w-64" />
+        <Select value={st} onChange={(e) => setSt(e.target.value)} options={[{ value: "all", label: "All statuses" }, "confirmed", "checked-in", "pending", "cancelled"]} className="h-10 bg-white/70 md:w-44" />
       </div>
 
       <Card pad={false}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[900px] text-left text-[14px]">
-            <thead className="border-b border-black/5 text-[12px] text-[#8e8e93]">
+            <thead className="border-b border-line text-[12px] text-muted">
               <tr>
                 {["Code", "Guest", "Event", "Tickets", "Amount", "Status", "Booked", ""].map((h) => (
                   <th key={h} className="px-4 py-3 font-medium">
@@ -224,21 +224,21 @@ export function BookingsTable({ initial, events }: { initial: Booking[]; events:
                   <td className="px-4 py-3 font-mono text-[12px]">{b.id}</td>
                   <td className="px-4 py-3">
                     <p className="font-medium">{b.name}</p>
-                    <p className="text-[12px] text-[#8e8e93]">{b.email}</p>
+                    <p className="text-[12px] text-muted">{b.email}</p>
                   </td>
-                  <td className="max-w-[200px] truncate px-4 py-3 text-[#3a3a3c]">{b.eventTitle}</td>
+                  <td className="max-w-[200px] truncate px-4 py-3 text-ink/80">{b.eventTitle}</td>
                   <td className="px-4 py-3">
                     {b.qty} × {b.ticket}
                   </td>
                   <td className="px-4 py-3 font-medium tabular-nums">{inr(b.total)}</td>
                   <td className="px-4 py-3">
-                    <select value={b.status} onChange={(e) => setStatus(b, e.target.value as BookingStatus)} className="rounded-full bg-[#f5f5f7] px-2.5 py-1 text-[12px] font-medium outline-none">
+                    <select value={b.status} onChange={(e) => setStatus(b, e.target.value as BookingStatus)} className="rounded-[3px] bg-ink/[0.04] px-2.5 py-1 text-[12px] font-medium outline-none">
                       {["confirmed", "checked-in", "pending", "cancelled"].map((s) => (
                         <option key={s}>{s}</option>
                       ))}
                     </select>
                   </td>
-                  <td className="px-4 py-3 text-[#8e8e93]">{fmtDate(b.createdAt)}</td>
+                  <td className="px-4 py-3 text-muted">{fmtDate(b.createdAt)}</td>
                   <td className="px-4 py-3 text-right">
                     {b.status === "confirmed" ? (
                       <Button variant="secondary" className="h-8 px-3 text-[12px]" onClick={() => setStatus(b, "checked-in")}>
@@ -261,12 +261,12 @@ export function BookingsTable({ initial, events }: { initial: Booking[]; events:
 
 function Stat({ label, value, progress }: { label: string; value: string; progress?: number }) {
   return (
-    <div className="rounded-[18px] bg-white p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.04)]">
-      <p className="text-[12px] text-[#8e8e93]">{label}</p>
-      <p className="text-[24px] font-semibold tracking-tight tabular-nums">{value}</p>
+    <div className="rounded-[4px] bg-white/70 p-4 border border-line">
+      <p className="text-[12px] text-muted">{label}</p>
+      <p className="text-[24px] font-medium tracking-tight tabular-nums">{value}</p>
       {progress !== undefined && (
-        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#f0f0f2]">
-          <div className="h-full rounded-full bg-[#30d158]" style={{ width: `${progress * 100}%` }} />
+        <div className="mt-2 h-1.5 overflow-hidden rounded-[3px] bg-ink/[0.05]">
+          <div className="h-full rounded-[3px] bg-[#1a7f3c]" style={{ width: `${progress * 100}%` }} />
         </div>
       )}
     </div>
@@ -300,7 +300,7 @@ export function SubscribersTable({ initial }: { initial: Subscriber[] }) {
               <Avatar name={s.email} size={32} />
               <div className="flex-1">
                 <p className="text-[14px] font-medium">{s.email}</p>
-                <p className="text-[12px] text-[#8e8e93]">Joined {timeAgo(s.createdAt)}</p>
+                <p className="text-[12px] text-muted">Joined {timeAgo(s.createdAt)}</p>
               </div>
               <button
                 onClick={async () => {
@@ -309,7 +309,7 @@ export function SubscribersTable({ initial }: { initial: Subscriber[] }) {
                   toast("Subscriber removed");
                   router.refresh();
                 }}
-                className="grid h-8 w-8 place-items-center rounded-full text-[#8e8e93] hover:bg-red-50 hover:text-red-600"
+                className="grid h-8 w-8 place-items-center rounded-full text-muted hover:bg-red-50 hover:text-red-600"
                 aria-label="Remove"
               >
                 <Trash2 className="h-4 w-4" />

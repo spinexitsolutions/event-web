@@ -73,11 +73,11 @@ export function LeadsBoard({ initial }: { initial: Lead[] }) {
 
       <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center">
         <Segmented value={view} onChange={setView} options={[{ value: "board", label: "Board" }, { value: "list", label: "List" }]} />
-        <label className="flex h-10 flex-1 items-center gap-2 rounded-full bg-white px-4 shadow-[0_0_0_1px_rgba(0,0,0,0.05)] md:max-w-xs">
-          <Search className="h-4 w-4 text-[#8e8e93]" />
+        <label className="flex h-10 flex-1 items-center gap-2 rounded-[3px] bg-white/70 px-4 border border-line md:max-w-xs">
+          <Search className="h-4 w-4 text-muted" />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search leads" className="w-full bg-transparent text-[14px] outline-none" />
         </label>
-        <Select value={owner} onChange={(e) => setOwner(e.target.value)} options={["All", ...OWNERS]} className="h-10 bg-white md:w-44" />
+        <Select value={owner} onChange={(e) => setOwner(e.target.value)} options={["All", ...OWNERS]} className="h-10 bg-white/70 md:w-44" />
       </div>
 
       {view === "board" ? (
@@ -98,15 +98,15 @@ export function LeadsBoard({ initial }: { initial: Lead[] }) {
                     setDrag(null);
                     setOver(null);
                   }}
-                  className={cn("w-[290px] shrink-0 rounded-[20px] bg-[#ebebed]/70 p-2 transition", over === s && "bg-accent-soft ring-2 ring-accent/40")}
+                  className={cn("w-[290px] shrink-0 rounded-[4px] bg-transparent p-2 transition", over === s && "bg-accent-soft ring-2 ring-accent/40")}
                 >
                   <div className="flex items-center justify-between px-2 py-2">
-                    <span className="flex items-center gap-2 text-[14px] font-semibold">
+                    <span className="flex items-center gap-2 text-[14px] font-medium">
                       <span className="h-2 w-2 rounded-full" style={{ background: STAGE_META[s].color }} />
                       {STAGE_META[s].label}
-                      <span className="text-[#8e8e93]">{col.length}</span>
+                      <span className="text-muted">{col.length}</span>
                     </span>
-                    <span className="text-[12px] text-[#8e8e93]">{inr(col.reduce((a, l) => a + l.value, 0), true)}</span>
+                    <span className="text-[12px] text-muted">{inr(col.reduce((a, l) => a + l.value, 0), true)}</span>
                   </div>
                   <div className="min-h-[120px] space-y-2">
                     <AnimatePresence>
@@ -122,30 +122,30 @@ export function LeadsBoard({ initial }: { initial: Lead[] }) {
                           onDragStart={() => setDrag(l.id)}
                           onDragEnd={() => setDrag(null)}
                           onClick={() => setEdit(l)}
-                          className="block w-full cursor-grab rounded-2xl bg-white p-3.5 text-left shadow-[0_1px_2px_rgba(0,0,0,0.06)] transition hover:shadow-md active:cursor-grabbing"
+                          className="block w-full cursor-grab rounded-[4px] bg-white/70 p-3.5 text-left transition active:cursor-grabbing"
                         >
                           <div className="flex items-start gap-2.5">
                             <Avatar name={l.name} size={32} />
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-[14px] font-semibold">{l.name}</p>
-                              <p className="truncate text-[12px] text-[#8e8e93]">{l.eventType}</p>
+                              <p className="truncate text-[14px] font-medium">{l.name}</p>
+                              <p className="truncate text-[12px] text-muted">{l.eventType}</p>
                             </div>
-                            {l.value > 0 && <span className="text-[13px] font-semibold tabular-nums">{inr(l.value, true)}</span>}
+                            {l.value > 0 && <span className="text-[13px] font-medium tabular-nums">{inr(l.value, true)}</span>}
                           </div>
-                          <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-[#6e6e73]">
+                          <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-muted">
                             {l.eventDate && (
-                              <span className="flex items-center gap-1 rounded-full bg-[#f5f5f7] px-2 py-0.5">
+                              <span className="flex items-center gap-1 rounded-[3px] bg-ink/[0.04] px-2 py-0.5">
                                 <CalendarDays className="h-3 w-3" />
                                 {fmtDate(l.eventDate, { day: "numeric", month: "short" })}
                               </span>
                             )}
                             {l.guests > 0 && (
-                              <span className="flex items-center gap-1 rounded-full bg-[#f5f5f7] px-2 py-0.5">
+                              <span className="flex items-center gap-1 rounded-[3px] bg-ink/[0.04] px-2 py-0.5">
                                 <Users className="h-3 w-3" />
                                 {l.guests}
                               </span>
                             )}
-                            <span className="rounded-full bg-[#f5f5f7] px-2 py-0.5 capitalize">{l.source}</span>
+                            <span className="rounded-[3px] bg-ink/[0.04] px-2 py-0.5 capitalize">{l.source}</span>
                             <span className="ml-auto">{timeAgo(l.createdAt)}</span>
                           </div>
                         </motion.button>
@@ -158,10 +158,10 @@ export function LeadsBoard({ initial }: { initial: Lead[] }) {
           </div>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-[20px] bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.04)]">
+        <div className="overflow-hidden rounded-[4px] bg-white/70 border border-line">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[820px] text-left text-[14px]">
-              <thead className="border-b border-black/5 text-[12px] text-[#8e8e93]">
+              <thead className="border-b border-line text-[12px] text-muted">
                 <tr>
                   {["Lead", "Event", "Budget", "Value", "Stage", "Owner", "Created"].map((h) => (
                     <th key={h} className="px-4 py-3 font-medium">
@@ -172,24 +172,24 @@ export function LeadsBoard({ initial }: { initial: Lead[] }) {
               </thead>
               <tbody className="divide-y divide-black/5">
                 {filtered.map((l) => (
-                  <tr key={l.id} onClick={() => setEdit(l)} className="cursor-pointer hover:bg-[#f9f9fb]">
+                  <tr key={l.id} onClick={() => setEdit(l)} className="cursor-pointer hover:bg-ink/[0.03]">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <Avatar name={l.name} size={32} />
                         <div>
                           <p className="font-medium">{l.name}</p>
-                          <p className="text-[12px] text-[#8e8e93]">{l.email}</p>
+                          <p className="text-[12px] text-muted">{l.email}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3">
                       {l.eventType}
-                      <p className="text-[12px] text-[#8e8e93]">{l.eventDate ? fmtDate(l.eventDate) : "Date TBC"}</p>
+                      <p className="text-[12px] text-muted">{l.eventDate ? fmtDate(l.eventDate) : "Date TBC"}</p>
                     </td>
-                    <td className="px-4 py-3 text-[#6e6e73]">{l.budget || "—"}</td>
+                    <td className="px-4 py-3 text-muted">{l.budget || "—"}</td>
                     <td className="px-4 py-3 font-medium tabular-nums">{l.value ? inr(l.value, true) : "—"}</td>
                     <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
-                      <select value={l.stage} onChange={(e) => move(l.id, e.target.value as LeadStage)} className="rounded-full bg-[#f5f5f7] px-2.5 py-1 text-[12px] font-medium outline-none">
+                      <select value={l.stage} onChange={(e) => move(l.id, e.target.value as LeadStage)} className="rounded-[3px] bg-ink/[0.04] px-2.5 py-1 text-[12px] font-medium outline-none">
                         {STAGES.map((s) => (
                           <option key={s} value={s}>
                             {STAGE_META[s].label}
@@ -198,7 +198,7 @@ export function LeadsBoard({ initial }: { initial: Lead[] }) {
                       </select>
                     </td>
                     <td className="px-4 py-3">{l.owner}</td>
-                    <td className="px-4 py-3 text-[#8e8e93]">{timeAgo(l.createdAt)}</td>
+                    <td className="px-4 py-3 text-muted">{timeAgo(l.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -266,25 +266,25 @@ function LeadDrawer({ lead, onClose, onSave, onDelete }: { lead: Lead | null; on
       }
     >
       {!isNew && (
-        <div className="mb-5 flex items-center gap-3 rounded-2xl bg-white p-4">
+        <div className="mb-5 flex items-center gap-3 rounded-[4px] bg-white/70 p-4">
           <Avatar name={l.name} size={48} />
           <div className="min-w-0 flex-1">
-            <p className="font-semibold">{l.name}</p>
-            <p className="truncate text-[13px] text-[#8e8e93]">
+            <p className="font-medium">{l.name}</p>
+            <p className="truncate text-[13px] text-muted">
               {l.id} · via {l.source} · {timeAgo(l.createdAt)}
             </p>
           </div>
           <div className="flex gap-1.5">
-            <a href={`mailto:${l.email}`} className="grid h-9 w-9 place-items-center rounded-full bg-[#f0f0f2]" title="Email">
+            <a href={`mailto:${l.email}`} className="grid h-9 w-9 place-items-center rounded-full bg-ink/[0.05]" title="Email">
               <Mail className="h-4 w-4" />
             </a>
             {l.phone && (
-              <a href={`tel:${l.phone}`} className="grid h-9 w-9 place-items-center rounded-full bg-[#f0f0f2]" title="Call">
+              <a href={`tel:${l.phone}`} className="grid h-9 w-9 place-items-center rounded-full bg-ink/[0.05]" title="Call">
                 <Phone className="h-4 w-4" />
               </a>
             )}
             {wa && (
-              <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" className="grid h-9 w-9 place-items-center rounded-full bg-[#e8f8ee] text-[#1a7f3c]" title="WhatsApp">
+              <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink" title="WhatsApp">
                 <MessageCircle className="h-4 w-4" />
               </a>
             )}
@@ -292,16 +292,16 @@ function LeadDrawer({ lead, onClose, onSave, onDelete }: { lead: Lead | null; on
         </div>
       )}
 
-      <p className="mb-2 text-[13px] font-medium text-[#3a3a3c]">Stage</p>
+      <p className="mb-2 text-[13px] font-medium text-ink/80">Stage</p>
       <div className="mb-5 flex flex-wrap gap-1.5">
         {STAGES.map((s) => (
-          <button key={s} onClick={() => set("stage", s)} className={cn("rounded-full px-3 py-1.5 text-[13px] font-medium transition", l.stage === s ? "text-white" : "bg-white text-[#3a3a3c]")} style={l.stage === s ? { background: STAGE_META[s].color } : undefined}>
+          <button key={s} onClick={() => set("stage", s)} className={cn("rounded-[3px] px-3 py-1.5 text-[13px] font-medium transition", l.stage === s ? "text-white" : "bg-white/70 text-ink/80")} style={l.stage === s ? { background: STAGE_META[s].color } : undefined}>
             {STAGE_META[s].label}
           </button>
         ))}
       </div>
 
-      <div className="grid gap-3 rounded-2xl bg-white p-4 sm:grid-cols-2">
+      <div className="grid gap-3 rounded-[4px] bg-white/70 p-4 sm:grid-cols-2">
         <Label label="Name">
           <Input value={l.name} onChange={(e) => set("name", e.target.value)} />
         </Label>
@@ -325,7 +325,7 @@ function LeadDrawer({ lead, onClose, onSave, onDelete }: { lead: Lead | null; on
         </Label>
         <Label label="Deal value (₹)" hint={l.value ? inr(l.value, true) : ""}>
           <div className="relative">
-            <IndianRupee className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8e8e93]" />
+            <IndianRupee className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             <Input type="number" value={l.value} onChange={(e) => set("value", +e.target.value)} className="pl-9" />
           </div>
         </Label>
@@ -341,8 +341,8 @@ function LeadDrawer({ lead, onClose, onSave, onDelete }: { lead: Lead | null; on
       </div>
 
       {!isNew && (
-        <div className="mt-5 rounded-2xl bg-white p-4">
-          <p className="mb-3 text-[14px] font-semibold">Notes & timeline</p>
+        <div className="mt-5 rounded-[4px] bg-white/70 p-4">
+          <p className="mb-3 text-[14px] font-medium">Notes & timeline</p>
           <div className="flex gap-2">
             <Input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Add a note…" onKeyDown={(e) => e.key === "Enter" && note && (setL({ ...l, notes: [...l.notes, { text: note, at: new Date().toISOString() }] }), setNote(""))} />
             <Button
@@ -366,15 +366,15 @@ function LeadDrawer({ lead, onClose, onSave, onDelete }: { lead: Lead | null; on
                 <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent" />
                 <div>
                   <p className="text-[14px]">{n.text}</p>
-                  <p className="text-[12px] text-[#8e8e93]">{timeAgo(n.at)}</p>
+                  <p className="text-[12px] text-muted">{timeAgo(n.at)}</p>
                 </div>
               </li>
             ))}
             <li className="flex gap-3">
-              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#c7c7cc]" />
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-ink/30" />
               <div>
                 <p className="text-[14px]">Lead created via {l.source}</p>
-                <p className="text-[12px] text-[#8e8e93]">{fmtDate(l.createdAt, { dateStyle: "medium", timeStyle: "short" })}</p>
+                <p className="text-[12px] text-muted">{fmtDate(l.createdAt, { dateStyle: "medium", timeStyle: "short" })}</p>
               </div>
             </li>
           </ul>

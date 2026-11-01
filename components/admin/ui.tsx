@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { Check, ImagePlus, Loader2, Upload, X } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ---------- API ---------- */
@@ -27,17 +27,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastCtx.Provider value={push}>
       {children}
-      <div className="pointer-events-none fixed inset-x-0 bottom-5 z-[300] flex flex-col items-center gap-2 px-4">
+      <div className="pointer-events-none fixed bottom-5 right-5 z-[300] flex flex-col items-end gap-2">
         <AnimatePresence>
           {list.map((t) => (
             <motion.div
               key={t.id}
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className={cn("flex items-center gap-2 rounded-full px-4 py-2.5 text-sm text-white shadow-xl", t.tone === "ok" ? "bg-[#1d1d1f]" : "bg-red-600")}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className={cn("meta flex items-center gap-3 rounded-[3px] px-4 py-3 text-bg", t.tone === "ok" ? "bg-ink" : "bg-[#b42318]")}
             >
-              {t.tone === "ok" ? <Check className="h-4 w-4 text-[#34c759]" /> : <X className="h-4 w-4" />}
+              <span className={cn("h-1.5 w-1.5", t.tone === "ok" ? "bg-[#4ade80]" : "bg-white")} />
               {t.text}
             </motion.div>
           ))}
@@ -50,11 +51,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 /* ---------- Primitives ---------- */
 export function Card({ children, className, title, action, pad = true }: { children: ReactNode; className?: string; title?: ReactNode; action?: ReactNode; pad?: boolean }) {
   return (
-    <section className={cn("rounded-[20px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.04)]", className)}>
+    <section className={cn("rounded-[4px] border border-line bg-white/70", className)}>
       {(title || action) && (
-        <header className="flex items-center justify-between gap-3 px-5 pb-1 pt-4">
-          <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
-          {action}
+        <header className="meta flex items-baseline justify-between gap-3 border-b border-line px-5 py-3">
+          <h3 className="text-[13px] font-medium tracking-[-0.01em] text-ink">{title}</h3>
+          <span className="text-muted">{action}</span>
         </header>
       )}
       <div className={pad ? "p-5" : ""}>{children}</div>
@@ -64,12 +65,18 @@ export function Card({ children, className, title, action, pad = true }: { child
 
 export function PageTitle({ title, subtitle, children }: { title: string; subtitle?: string; children?: ReactNode }) {
   return (
-    <div className="mb-6 flex flex-col gap-4 md:mb-8 md:flex-row md:items-end md:justify-between">
-      <div>
-        <h1 className="text-[28px] font-semibold tracking-[-0.03em] md:text-[34px]">{title}</h1>
-        {subtitle && <p className="mt-1 text-[15px] text-[#6e6e73]">{subtitle}</p>}
+    <div className="mb-8 md:mb-10">
+      <div className="meta flex justify-between border-b border-line pb-3 text-muted">
+        <span className="text-ink">Studio admin</span>
+        <span>{new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</span>
       </div>
-      {children && <div className="flex flex-wrap items-center gap-2">{children}</div>}
+      <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h1 className="text-[clamp(2.2rem,4vw,3.6rem)] leading-[0.95] tracking-[-0.05em]">{title}</h1>
+          {subtitle && <p className="mt-3 max-w-xl text-[14px] text-muted">{subtitle}</p>}
+        </div>
+        {children && <div className="flex flex-wrap items-center gap-2">{children}</div>}
+      </div>
     </div>
   );
 }
@@ -86,42 +93,47 @@ export function Button({
       {...p}
       disabled={p.disabled || loading}
       className={cn(
-        "inline-flex h-10 items-center justify-center gap-2 rounded-full px-4 text-[14px] font-medium transition active:scale-[0.97] disabled:opacity-50",
-        variant === "primary" && "bg-[#1d1d1f] text-white hover:bg-black",
+        "inline-flex h-10 items-center justify-center gap-2 rounded-[3px] px-4 text-[13px] font-medium tracking-[-0.005em] transition-colors disabled:opacity-40",
+        variant === "primary" && "bg-ink text-bg hover:bg-ink/85",
         variant === "accent" && "bg-accent text-white hover:brightness-110",
-        variant === "secondary" && "bg-[#f0f0f2] text-[#1d1d1f] hover:bg-[#e6e6e9]",
-        variant === "ghost" && "text-[#1d1d1f] hover:bg-black/5",
-        variant === "danger" && "bg-red-50 text-red-600 hover:bg-red-100",
+        variant === "secondary" && "border border-line bg-transparent text-ink hover:border-ink",
+        variant === "ghost" && "text-ink hover:bg-ink/[0.05]",
+        variant === "danger" && "border border-[#b42318]/30 text-[#b42318] hover:bg-[#b42318] hover:text-white",
         className
       )}
     >
-      {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+      {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
       {children}
     </button>
   );
 }
 
+const DOT: Record<string, string> = {
+  gray: "bg-ink/30",
+  green: "bg-[#1a7f3c]",
+  blue: "bg-accent",
+  orange: "bg-[#c2410c]",
+  red: "bg-[#b42318]",
+  purple: "bg-ink/60",
+  yellow: "bg-[#b45309]",
+};
 export function Badge({ children, tone = "gray", className }: { children: ReactNode; tone?: "gray" | "green" | "blue" | "orange" | "red" | "purple" | "yellow"; className?: string }) {
-  const tones = {
-    gray: "bg-[#f0f0f2] text-[#3a3a3c]",
-    green: "bg-[#e8f8ee] text-[#1a7f3c]",
-    blue: "bg-[#e8f1ff] text-[#0a5bd6]",
-    orange: "bg-accent-soft text-accent",
-    red: "bg-red-50 text-red-600",
-    purple: "bg-[#f1ecff] text-[#6b3fd6]",
-    yellow: "bg-[#fff6db] text-[#8a6100]",
-  };
-  return <span className={cn("inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[12px] font-medium", tones[tone], className)}>{children}</span>;
+  return (
+    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap rounded-[3px] border border-line px-2 py-0.5 text-[12px] text-ink", className)}>
+      <span className={cn("h-1.5 w-1.5 shrink-0", DOT[tone])} />
+      {children}
+    </span>
+  );
 }
 
-const field = "w-full rounded-xl bg-[#f5f5f7] px-3.5 text-[15px] outline-none ring-1 ring-transparent transition focus:bg-white focus:ring-2 focus:ring-accent/60";
+const field = "w-full rounded-[3px] border border-line bg-white/80 px-3 text-[14px] outline-none transition-colors placeholder:text-muted focus:border-ink";
 
 export function Label({ label, hint, children, className }: { label: string; hint?: string; children: ReactNode; className?: string }) {
   return (
     <label className={cn("block", className)}>
-      <span className="mb-1.5 flex items-baseline justify-between text-[13px] font-medium text-[#3a3a3c]">
-        {label}
-        {hint && <span className="text-[12px] font-normal text-[#8e8e93]">{hint}</span>}
+      <span className="meta mb-1.5 flex items-baseline justify-between text-muted">
+        <span className="text-ink">{label}</span>
+        {hint && <span>{hint}</span>}
       </span>
       {children}
     </label>
@@ -129,14 +141,14 @@ export function Label({ label, hint, children, className }: { label: string; hin
 }
 
 export function Input(p: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...p} className={cn(field, "h-11", p.className)} />;
+  return <input {...p} className={cn(field, "h-10", p.className)} />;
 }
 export function Textarea(p: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return <textarea {...p} className={cn(field, "py-3 leading-relaxed", p.className)} />;
+  return <textarea {...p} className={cn(field, "py-2.5 leading-relaxed", p.className)} />;
 }
 export function Select({ options, ...p }: React.SelectHTMLAttributes<HTMLSelectElement> & { options: (string | { value: string; label: string })[] }) {
   return (
-    <select {...p} className={cn(field, "h-11 appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23888%22 stroke-width=%222%22><path d=%22m6 9 6 6 6-6%22/></svg>')] bg-[length:14px] bg-[right_12px_center] bg-no-repeat pr-9", p.className)}>
+    <select {...p} className={cn(field, "h-10 appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%2210%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23121212%22 stroke-width=%222%22><path d=%22m6 9 6 6 6-6%22/></svg>')] bg-[length:10px] bg-[right_12px_center] bg-no-repeat pr-8", p.className)}>
       {options.map((o) => (typeof o === "string" ? <option key={o}>{o}</option> : <option key={o.value} value={o.value}>{o.label}</option>))}
     </select>
   );
@@ -144,15 +156,18 @@ export function Select({ options, ...p }: React.SelectHTMLAttributes<HTMLSelectE
 
 export function Toggle({ checked, onChange, label, description }: { checked: boolean; onChange: (v: boolean) => void; label?: string; description?: string }) {
   return (
-    <button type="button" onClick={() => onChange(!checked)} className="flex w-full items-center justify-between gap-4 text-left">
+    <button type="button" onClick={() => onChange(!checked)} className="flex w-full items-center justify-between gap-4 text-left" aria-pressed={checked}>
       {(label || description) && (
         <span>
-          {label && <span className="block text-[15px] font-medium">{label}</span>}
-          {description && <span className="block text-[13px] text-[#8e8e93]">{description}</span>}
+          {label && <span className="block text-[14px]">{label}</span>}
+          {description && <span className="meta block text-muted">{description}</span>}
         </span>
       )}
-      <span className={cn("relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors", checked ? "bg-[#34c759]" : "bg-[#e9e9eb]")}>
-        <motion.span layout transition={{ type: "spring", stiffness: 500, damping: 34 }} className={cn("absolute top-[2px] h-[27px] w-[27px] rounded-full bg-white shadow-[0_3px_8px_rgba(0,0,0,0.15)]", checked ? "right-[2px]" : "left-[2px]")} />
+      <span className="flex shrink-0 items-center gap-2">
+        <span className="meta w-6 text-right text-muted">{checked ? "On" : "Off"}</span>
+        <span className={cn("relative h-5 w-9 rounded-[3px] border transition-colors", checked ? "border-ink bg-ink" : "border-line bg-transparent")}>
+          <motion.span layout transition={{ type: "spring", stiffness: 600, damping: 38 }} className={cn("absolute top-[2px] h-3.5 w-3.5 rounded-[2px]", checked ? "right-[2px] bg-bg" : "left-[2px] bg-ink/40")} />
+        </span>
       </span>
     </button>
   );
@@ -160,18 +175,18 @@ export function Toggle({ checked, onChange, label, description }: { checked: boo
 
 export function Segmented<T extends string>({ value, onChange, options }: { value: T; onChange: (v: T) => void; options: { value: T; label: string }[] }) {
   return (
-    <div className="inline-flex rounded-[10px] bg-[#f0f0f2] p-0.5">
+    <div className="inline-flex border-b border-line">
       {options.map((o) => (
-        <button key={o.value} type="button" onClick={() => onChange(o.value)} className="relative rounded-[8px] px-3 py-1.5 text-[13px] font-medium">
-          {value === o.value && <motion.span layoutId={`seg-${options.map((x) => x.value).join("")}`} className="absolute inset-0 rounded-[8px] bg-white shadow-sm" transition={{ type: "spring", stiffness: 500, damping: 36 }} />}
-          <span className="relative">{o.label}</span>
+        <button key={o.value} type="button" onClick={() => onChange(o.value)} className={cn("relative px-3 pb-2 pt-1 text-[13px] transition-colors", value === o.value ? "text-ink" : "text-muted hover:text-ink")}>
+          {o.label}
+          {value === o.value && <motion.span layoutId={`seg-${options.map((x) => x.value).join("")}`} className="absolute inset-x-0 -bottom-px h-px bg-ink" transition={{ type: "spring", stiffness: 500, damping: 40 }} />}
         </button>
       ))}
     </div>
   );
 }
 
-/* ---------- Drawer / Modal ---------- */
+/* ---------- Drawer ---------- */
 export function Drawer({ open, onClose, title, children, footer, wide }: { open: boolean; onClose: () => void; title: ReactNode; children: ReactNode; footer?: ReactNode; wide?: boolean }) {
   useEffect(() => {
     if (!open) return;
@@ -187,22 +202,22 @@ export function Drawer({ open, onClose, title, children, footer, wide }: { open:
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[200]">
-          <motion.div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
+          <motion.div className="absolute inset-0 bg-ink/25" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
           <motion.aside
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", stiffness: 380, damping: 40 }}
-            className={cn("absolute bottom-0 right-0 top-0 flex w-full flex-col bg-[#f5f5f7] shadow-2xl md:rounded-l-[24px]", wide ? "md:w-[760px]" : "md:w-[560px]")}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className={cn("absolute bottom-0 right-0 top-0 flex w-full flex-col border-l border-line bg-bg", wide ? "md:w-[760px]" : "md:w-[560px]")}
           >
-            <header className="flex items-center justify-between gap-3 border-b border-black/5 bg-white/80 px-5 py-4 backdrop-blur md:rounded-tl-[24px]">
-              <h2 className="truncate text-[17px] font-semibold tracking-tight">{title}</h2>
-              <button onClick={onClose} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#f0f0f2] hover:bg-[#e6e6e9]" aria-label="Close">
-                <X className="h-4 w-4" />
+            <header className="flex items-center justify-between gap-3 border-b border-line px-5 py-4">
+              <h2 className="truncate text-[20px] tracking-[-0.03em]">{title}</h2>
+              <button onClick={onClose} className="meta shrink-0 text-muted hover:text-ink" aria-label="Close">
+                Close ✕
               </button>
             </header>
             <div className="flex-1 overflow-y-auto p-5">{children}</div>
-            {footer && <footer className="flex items-center justify-between gap-2 border-t border-black/5 bg-white px-5 py-3 md:rounded-bl-[24px]">{footer}</footer>}
+            {footer && <footer className="flex items-center justify-between gap-2 border-t border-line px-5 py-3">{footer}</footer>}
           </motion.aside>
         </div>
       )}
@@ -240,22 +255,22 @@ export function ImageInput({ value, onChange }: { value: string; onChange: (v: s
   return (
     <div className="space-y-2">
       <div className="flex gap-3">
-        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-[#f0f0f2]">
-          {value ? <img src={value} alt="" className="h-full w-full object-cover" /> : <ImagePlus className="absolute inset-0 m-auto h-5 w-5 text-[#8e8e93]" />}
+        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-[3px] border border-line bg-ink/[0.04]">
+          {value ? <img src={value} alt="" className="h-full w-full object-cover" /> : <span className="meta absolute inset-0 grid place-items-center text-muted">No image</span>}
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <Input value={value.startsWith("data:") ? "(uploaded image)" : value} onChange={(e) => onChange(e.target.value)} placeholder="https://images.unsplash.com/…" readOnly={value.startsWith("data:")} />
-          <div className="flex gap-2">
-            <Button type="button" variant="secondary" className="h-8 px-3 text-[13px]" onClick={() => fileRef.current?.click()}>
-              <Upload className="h-3.5 w-3.5" /> Upload
-            </Button>
-            <Button type="button" variant="secondary" className="h-8 px-3 text-[13px]" onClick={() => setLib((v) => !v)}>
-              <ImagePlus className="h-3.5 w-3.5" /> Library
-            </Button>
+          <div className="meta flex gap-4">
+            <button type="button" className="link-underline" onClick={() => fileRef.current?.click()}>
+              Upload
+            </button>
+            <button type="button" className="link-underline" onClick={() => setLib((v) => !v)}>
+              {lib ? "Close library" : "Library"}
+            </button>
             {value && (
-              <Button type="button" variant="ghost" className="h-8 px-3 text-[13px]" onClick={() => onChange("")}>
+              <button type="button" className="text-muted hover:text-ink" onClick={() => onChange("")}>
                 Clear
-              </Button>
+              </button>
             )}
           </div>
         </div>
@@ -274,7 +289,7 @@ export function ImageInput({ value, onChange }: { value: string; onChange: (v: s
       <AnimatePresence>
         {lib && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-            <div className="grid max-h-56 grid-cols-5 gap-1.5 overflow-y-auto rounded-xl bg-[#f0f0f2] p-1.5">
+            <div className="grid max-h-56 grid-cols-5 gap-1 overflow-y-auto border border-line p-1" data-lenis-prevent>
               {LIB.map((id) => {
                 const u = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1600&q=80`;
                 return (
@@ -285,7 +300,7 @@ export function ImageInput({ value, onChange }: { value: string; onChange: (v: s
                       onChange(u);
                       setLib(false);
                     }}
-                    className={cn("aspect-square overflow-hidden rounded-lg ring-2", value === u ? "ring-accent" : "ring-transparent")}
+                    className={cn("aspect-square overflow-hidden outline outline-2 -outline-offset-2", value === u ? "outline-ink" : "outline-transparent")}
                   >
                     <img src={`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=200&q=60`} alt="" className="h-full w-full object-cover" loading="lazy" />
                   </button>
@@ -300,7 +315,7 @@ export function ImageInput({ value, onChange }: { value: string; onChange: (v: s
 }
 
 export function Empty({ children }: { children: ReactNode }) {
-  return <div className="rounded-2xl border border-dashed border-black/10 p-10 text-center text-[15px] text-[#8e8e93]">{children}</div>;
+  return <div className="meta border border-dashed border-line p-10 text-center text-muted">{children}</div>;
 }
 
 export function downloadCsv(name: string, rows: Record<string, unknown>[]) {

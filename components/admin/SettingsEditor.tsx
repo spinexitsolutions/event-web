@@ -72,7 +72,7 @@ export function SettingsEditor({ initial }: { initial: Settings }) {
   return (
     <>
       <PageTitle title="Site settings" subtitle="Control every part of the public website — no code needed.">
-        <a href="/" target="_blank" className="inline-flex h-10 items-center gap-2 rounded-full px-4 text-[14px] font-medium hover:bg-black/5">
+        <a href="/" target="_blank" className="inline-flex h-10 items-center gap-2 rounded-[3px] px-4 text-[14px] font-medium hover:bg-ink/[0.05]">
           <ExternalLink className="h-4 w-4" /> Preview site
         </a>
         <Button onClick={save} loading={busy} disabled={!anyDirty} variant={anyDirty ? "accent" : "primary"}>
@@ -81,11 +81,11 @@ export function SettingsEditor({ initial }: { initial: Settings }) {
       </PageTitle>
 
       <div className="no-scrollbar -mx-4 mb-6 overflow-x-auto px-4 md:mx-0 md:px-0">
-        <div className="inline-flex gap-1 rounded-full bg-white p-1 shadow-[0_0_0_1px_rgba(0,0,0,0.05)]">
+        <div className="inline-flex gap-1 rounded-[3px] bg-white/70 p-1 border border-line">
           {TABS.map((t) => (
-            <button key={t.id} onClick={() => setTab(t.id)} className="relative whitespace-nowrap rounded-full px-4 py-2 text-[14px] font-medium">
-              {tab === t.id && <motion.span layoutId="settings-tab" className="absolute inset-0 rounded-full bg-[#1d1d1f]" transition={{ type: "spring", stiffness: 450, damping: 36 }} />}
-              <span className={cn("relative", tab === t.id ? "text-white" : "text-[#3a3a3c]")}>{t.label}</span>
+            <button key={t.id} onClick={() => setTab(t.id)} className="relative whitespace-nowrap rounded-[3px] px-4 py-2 text-[14px] font-medium">
+              {tab === t.id && <motion.span layoutId="settings-tab" className="absolute inset-0 rounded-[3px] bg-ink" transition={{ type: "spring", stiffness: 450, damping: 36 }} />}
+              <span className={cn("relative", tab === t.id ? "text-white" : "text-ink/80")}>{t.label}</span>
             </button>
           ))}
         </div>
@@ -105,9 +105,9 @@ export function SettingsEditor({ initial }: { initial: Settings }) {
       <AnimatePresence>
         {anyDirty && (
           <motion.div initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }} className="fixed inset-x-0 bottom-5 z-40 flex justify-center px-4 lg:pl-[260px]">
-            <div className="flex items-center gap-3 rounded-full bg-[#1d1d1f] p-1.5 pl-5 text-[14px] text-white shadow-2xl">
+            <div className="flex items-center gap-3 rounded-[3px] bg-ink p-1.5 pl-5 text-[14px] text-white shadow-2xl">
               <span>{dirty ? "Unsaved changes on this tab" : "Unsaved changes"}</span>
-              <button onClick={() => setS(saved)} className="rounded-full px-3 py-2 text-white/70 hover:text-white">
+              <button onClick={() => setS(saved)} className="rounded-[3px] px-3 py-2 text-white/70 hover:text-white">
                 Discard
               </button>
               <Button variant="accent" onClick={save} loading={busy}>
@@ -198,8 +198,8 @@ function General({ s, up }: TabProps) {
           <Label label="Meta description" hint={`${s.seo.description.length}/160`}>
             <Textarea rows={2} value={s.seo.description} onChange={(e) => up("seo", { description: e.target.value })} />
           </Label>
-          <div className="rounded-xl bg-[#f5f5f7] p-4">
-            <p className="text-[12px] text-[#8e8e93]">Google preview</p>
+          <div className="rounded-[3px] bg-ink/[0.04] p-4">
+            <p className="text-[12px] text-muted">Google preview</p>
             <p className="mt-1 text-[18px] text-[#1a0dab]">{s.seo.title}</p>
             <p className="text-[13px] text-[#006621]">https://lume.events</p>
             <p className="text-[13px] text-[#545454]">{s.seo.description}</p>
@@ -208,7 +208,7 @@ function General({ s, up }: TabProps) {
       </Card>
       <Card title="Demo data">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[14px] text-[#6e6e73]">Reset every event, lead, booking and setting back to the original demo content.</p>
+          <p className="text-[14px] text-muted">Reset every event, lead, booking and setting back to the original demo content.</p>
           <Button
             variant="danger"
             onClick={async () => {
@@ -235,7 +235,7 @@ function Appearance({ s, up }: TabProps) {
         <Card title="Colour presets">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {PRESETS.map((p) => (
-              <button key={p.name} onClick={() => up("theme", { accent: p.accent, accentSoft: p.accentSoft, pop: p.pop, background: p.background })} className={cn("flex items-center gap-3 rounded-2xl p-3 text-left ring-1 transition", t.accent.toLowerCase() === p.accent.toLowerCase() ? "ring-2 ring-[#1d1d1f]" : "ring-black/5 hover:ring-black/20")}>
+              <button key={p.name} onClick={() => up("theme", { accent: p.accent, accentSoft: p.accentSoft, pop: p.pop, background: p.background })} className={cn("flex items-center gap-3 rounded-[4px] p-3 text-left ring-1 transition", t.accent.toLowerCase() === p.accent.toLowerCase() ? "ring-2 ring-[#1d1d1f]" : "ring-line hover:ring-ink/30")}>
                 <span className="flex -space-x-1.5">
                   <span className="h-7 w-7 rounded-full ring-2 ring-white" style={{ background: p.accent }} />
                   <span className="h-7 w-7 rounded-full ring-2 ring-white" style={{ background: p.pop }} />
@@ -260,7 +260,7 @@ function Appearance({ s, up }: TabProps) {
             ).map(([k, l]) => (
               <Label key={k} label={l}>
                 <div className="flex items-center gap-2">
-                  <input type="color" value={t[k]} onChange={(e) => up("theme", { [k]: e.target.value })} className="h-11 w-14 cursor-pointer rounded-xl border-0 bg-transparent" />
+                  <input type="color" value={t[k]} onChange={(e) => up("theme", { [k]: e.target.value })} className="h-11 w-14 cursor-pointer rounded-[3px] border-0 bg-transparent" />
                   <Input value={t[k]} onChange={(e) => up("theme", { [k]: e.target.value })} className="font-mono text-[13px]" />
                 </div>
               </Label>
@@ -278,27 +278,27 @@ function Appearance({ s, up }: TabProps) {
         </Card>
       </div>
       <Card title="Live preview" className="h-fit xl:sticky xl:top-6">
-        <div className="overflow-hidden rounded-2xl" style={{ background: t.background, color: t.ink, borderRadius: t.radius }}>
+        <div className="overflow-hidden rounded-[4px]" style={{ background: t.background, color: t.ink, borderRadius: t.radius }}>
           <div className="p-6">
             <p className="text-[11px] uppercase tracking-[0.14em] opacity-60">Event studio</p>
             <p className="mt-3 text-[40px] font-medium leading-[0.95] tracking-[-0.045em]">
               We design <span className="accent-word" style={{ color: t.accent }}>moments.</span>
             </p>
             <div className="mt-6 flex gap-2">
-              <span className="rounded-full px-4 py-2.5 text-[13px] font-medium text-white" style={{ background: t.accent }}>
+              <span className="rounded-[3px] px-4 py-2.5 text-[13px] font-medium text-white" style={{ background: t.accent }}>
                 Plan an event
               </span>
-              <span className="rounded-full px-4 py-2.5 text-[13px]" style={{ boxShadow: `inset 0 0 0 1px ${t.ink}22` }}>
+              <span className="rounded-[3px] px-4 py-2.5 text-[13px]" style={{ boxShadow: `inset 0 0 0 1px ${t.ink}22` }}>
                 Explore
               </span>
             </div>
           </div>
           <div className="m-3 p-5 text-white" style={{ background: t.dark, borderRadius: Math.max(0, t.radius - 8) }}>
-            <span className="rounded-full px-2.5 py-1 text-[11px]" style={{ background: t.accentSoft, color: t.accent }}>
+            <span className="rounded-[3px] px-2.5 py-1 text-[11px]" style={{ background: t.accentSoft, color: t.accent }}>
               Selling fast
             </span>
             <p className="mt-3 text-[20px] font-medium tracking-tight">Neon Tides Festival</p>
-            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/20">
+            <div className="mt-3 h-1.5 overflow-hidden rounded-[3px] bg-white/20">
               <div className="h-full w-3/4 rounded-full" style={{ background: t.accent }} />
             </div>
           </div>
@@ -317,7 +317,7 @@ function IntroTab({ s, up }: TabProps) {
         <div className="space-y-5">
           <Toggle checked={it.enabled} onChange={(v) => up("intro", { enabled: v })} label="Show intro animation" description="Plays when a visitor first opens the site" />
           <div>
-            <p className="mb-2 text-[13px] font-medium text-[#3a3a3c]">Style</p>
+            <p className="mb-2 text-[13px] font-medium text-ink/80">Style</p>
             <Segmented
               value={it.style}
               onChange={(v) => up("intro", { style: v })}
@@ -362,11 +362,11 @@ function IntroPreview({ s }: { s: Settings }) {
     return () => cancelAnimationFrame(raf);
   }, [intro.duration, words.length]);
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl p-4 text-white" style={{ background: theme.dark }}>
+    <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] p-4 text-white" style={{ background: theme.dark }}>
       {!intro.enabled && <div className="absolute inset-0 z-10 grid place-items-center bg-black/60 text-[13px]">Intro is disabled</div>}
       {intro.style === "counter" && (
         <div className="flex h-full flex-col justify-between">
-          <span className="text-[12px] font-semibold">
+          <span className="text-[12px] font-medium">
             {brand.name}
             <span style={{ color: theme.accent }}>.</span>
           </span>
@@ -395,7 +395,7 @@ function IntroPreview({ s }: { s: Settings }) {
       )}
       {intro.style === "logo" && (
         <div className="grid h-full place-items-center">
-          <div className="flex overflow-hidden text-[64px] font-semibold tracking-[-0.06em]">
+          <div className="flex overflow-hidden text-[64px] font-medium tracking-[-0.06em]">
             {brand.name.split("").map((c, i) => (
               <motion.span key={i} initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ delay: i * 0.07, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
                 {c}
@@ -418,20 +418,20 @@ function NavTab({ s, up }: TabProps) {
   }, [items]);
   return (
     <div className="grid gap-4 xl:grid-cols-[1fr_380px]">
-      <Card title="Menu items" action={<span className="text-[12px] text-[#8e8e93]">Drag to reorder</span>}>
+      <Card title="Menu items" action={<span className="text-[12px] text-muted">Drag to reorder</span>}>
         <Reorder.Group axis="y" values={items} onReorder={setItems} className="space-y-2">
           {items.map((it, i) => (
-            <Reorder.Item key={it._k} value={it} className="list-none rounded-2xl bg-[#f5f5f7] p-3">
+            <Reorder.Item key={it._k} value={it} className="list-none rounded-[4px] bg-ink/[0.04] p-3">
               <div className="flex items-center gap-2">
-                <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-[#aeaeb2]" />
-                <Input value={it.label} onChange={(e) => setItems(items.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)))} className="bg-white" placeholder="Label" />
-                <Input value={it.href} onChange={(e) => setItems(items.map((x, j) => (j === i ? { ...x, href: e.target.value } : x)))} className="bg-white font-mono text-[13px]" placeholder="/path" />
+                <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-ink/30" />
+                <Input value={it.label} onChange={(e) => setItems(items.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)))} className="bg-white/70" placeholder="Label" />
+                <Input value={it.href} onChange={(e) => setItems(items.map((x, j) => (j === i ? { ...x, href: e.target.value } : x)))} className="bg-white/70 font-mono text-[13px]" placeholder="/path" />
                 <Button variant="ghost" className="h-11 w-11 shrink-0 px-0" onClick={() => setItems(items.filter((_, j) => j !== i))} aria-label="Remove">
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
               <details className="mt-2 pl-6">
-                <summary className="cursor-pointer text-[12px] text-[#8e8e93]">Menu preview image</summary>
+                <summary className="cursor-pointer text-[12px] text-muted">Menu preview image</summary>
                 <div className="mt-2">
                   <ImageInput value={it.image || ""} onChange={(v) => setItems(items.map((x, j) => (j === i ? { ...x, image: v } : x)))} />
                 </div>
@@ -455,8 +455,8 @@ function NavTab({ s, up }: TabProps) {
           </div>
         </Card>
         <Card title="Preview">
-          <div className="rounded-2xl bg-[#e9e6df] p-4">
-            <div className="mx-auto flex w-fit max-w-full items-center gap-1 overflow-hidden rounded-full bg-[#111]/90 p-1.5 pl-3 text-[11px] text-white">
+          <div className="rounded-[4px] bg-[#e9e6df] p-4">
+            <div className="mx-auto flex w-fit max-w-full items-center gap-1 overflow-hidden rounded-[3px] bg-[#111]/90 p-1.5 pl-3 text-[11px] text-white">
               <span className="mr-1 h-2 w-2 shrink-0 rounded-full" style={{ background: s.theme.accent }} />
               <b className="mr-1">{s.brand.name}</b>
               {items.slice(0, 4).map((i) => (
@@ -464,11 +464,11 @@ function NavTab({ s, up }: TabProps) {
                   {i.label}
                 </span>
               ))}
-              <span className="ml-1 shrink-0 rounded-full px-2.5 py-1" style={{ background: s.theme.accent }}>
+              <span className="ml-1 shrink-0 rounded-[3px] px-2.5 py-1" style={{ background: s.theme.accent }}>
                 {nav.ctaLabel}
               </span>
             </div>
-            <p className="mt-3 text-center text-[11px] text-[#8e8e93]">Dynamic-island navbar · docks to the bottom on mobile</p>
+            <p className="mt-3 text-center text-[11px] text-muted">Dynamic-island navbar · docks to the bottom on mobile</p>
           </div>
         </Card>
       </div>
@@ -480,11 +480,11 @@ function HomeTab({ s, up, setS }: TabProps) {
   const h = s.hero;
   return (
     <>
-      <Card title="Homepage sections" action={<span className="text-[12px] text-[#8e8e93]">Drag to reorder · toggle to show/hide</span>}>
+      <Card title="Homepage sections" action={<span className="text-[12px] text-muted">Drag to reorder · toggle to show/hide</span>}>
         <Reorder.Group axis="y" values={s.sections} onReorder={(v) => setS!((p) => ({ ...p, sections: v }))} className="grid gap-2 md:grid-cols-2">
           {s.sections.map((sec) => (
-            <Reorder.Item key={sec.id} value={sec} className={cn("flex list-none items-center gap-3 rounded-2xl p-3 transition", sec.enabled ? "bg-[#f5f5f7]" : "bg-[#f5f5f7]/50 opacity-60")}>
-              <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-[#aeaeb2]" />
+            <Reorder.Item key={sec.id} value={sec} className={cn("flex list-none items-center gap-3 rounded-[4px] p-3 transition", sec.enabled ? "bg-ink/[0.04]" : "bg-ink/[0.04] opacity-60")}>
+              <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-ink/30" />
               <div className="flex-1">
                 <Toggle checked={sec.enabled} onChange={(v) => setS!((p) => ({ ...p, sections: p.sections.map((x) => (x.id === sec.id ? { ...x, enabled: v } : x)) }))} label={sec.label} />
               </div>
@@ -538,10 +538,10 @@ function HomeTab({ s, up, setS }: TabProps) {
           </Label>
           <div className="grid gap-2 sm:grid-cols-2">
             {s.stats.map((st, i) => (
-              <div key={i} className="grid grid-cols-[90px_70px_1fr] gap-2 rounded-2xl bg-[#f5f5f7] p-2">
-                <Input type="number" value={st.value} onChange={(e) => up("stats", s.stats.map((x, j) => (j === i ? { ...x, value: +e.target.value } : x)))} className="bg-white" />
-                <Input value={st.suffix} onChange={(e) => up("stats", s.stats.map((x, j) => (j === i ? { ...x, suffix: e.target.value } : x)))} className="bg-white" />
-                <Input value={st.label} onChange={(e) => up("stats", s.stats.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)))} className="bg-white" />
+              <div key={i} className="grid grid-cols-[90px_70px_1fr] gap-2 rounded-[4px] bg-ink/[0.04] p-2">
+                <Input type="number" value={st.value} onChange={(e) => up("stats", s.stats.map((x, j) => (j === i ? { ...x, value: +e.target.value } : x)))} className="bg-white/70" />
+                <Input value={st.suffix} onChange={(e) => up("stats", s.stats.map((x, j) => (j === i ? { ...x, suffix: e.target.value } : x)))} className="bg-white/70" />
+                <Input value={st.label} onChange={(e) => up("stats", s.stats.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)))} className="bg-white/70" />
               </div>
             ))}
           </div>
@@ -573,9 +573,9 @@ function ContentTab({ s, up }: TabProps) {
           </Label>
           <div className="grid gap-2 md:grid-cols-3">
             {a.values.map((v, i) => (
-              <div key={i} className="space-y-2 rounded-2xl bg-[#f5f5f7] p-3">
-                <Input value={v.title} onChange={(e) => up("about", { values: a.values.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} className="bg-white" />
-                <Textarea rows={3} value={v.text} onChange={(e) => up("about", { values: a.values.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)) })} className="bg-white" />
+              <div key={i} className="space-y-2 rounded-[4px] bg-ink/[0.04] p-3">
+                <Input value={v.title} onChange={(e) => up("about", { values: a.values.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} className="bg-white/70" />
+                <Textarea rows={3} value={v.text} onChange={(e) => up("about", { values: a.values.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)) })} className="bg-white/70" />
               </div>
             ))}
           </div>
@@ -584,9 +584,9 @@ function ContentTab({ s, up }: TabProps) {
       <Card title="Process steps">
         <div className="grid gap-2 md:grid-cols-2">
           {s.process.map((p, i) => (
-            <div key={i} className="space-y-2 rounded-2xl bg-[#f5f5f7] p-3">
-              <Input value={p.title} onChange={(e) => up("process", s.process.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)))} className="bg-white" />
-              <Textarea rows={2} value={p.text} onChange={(e) => up("process", s.process.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)))} className="bg-white" />
+            <div key={i} className="space-y-2 rounded-[4px] bg-ink/[0.04] p-3">
+              <Input value={p.title} onChange={(e) => up("process", s.process.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)))} className="bg-white/70" />
+              <Textarea rows={2} value={p.text} onChange={(e) => up("process", s.process.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)))} className="bg-white/70" />
             </div>
           ))}
         </div>
